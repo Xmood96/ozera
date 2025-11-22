@@ -1,5 +1,5 @@
-const { initializeApp } = require("firebase/app");
-const { getFirestore, collection, addDoc, Timestamp } = require("firebase/firestore");
+import { initializeApp } from "firebase/app";
+import { getFirestore, collection, addDoc, Timestamp } from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCLMNvYJcfNiYbFzMpfmcrAAst8EVhZfEI",
@@ -39,7 +39,7 @@ const products = [
   },
   {
     name: "كريم اللافندر والحليب",
-    description: "��رطب فاخر برائحة اللافندر الطبيعية",
+    description: "مرطب فاخر برائحة اللافندر الطبيعية",
     price: 329,
     categoryId: "كريمات الترطيب",
     imageUrl: "https://images.unsplash.com/photo-1556228578-8c89e6adf883?w=500&h=500&fit=crop"
@@ -67,7 +67,7 @@ const products = [
   },
   {
     name: "قناع الزعفران والعسل",
-    description: "قناع مرطب فاخر ب��لزعفران والعسل الطبيعي",
+    description: "قناع مرطب فاخر بالزعفران والعسل الطبيعي",
     price: 349,
     categoryId: "أقنعة العناية",
     imageUrl: "https://images.unsplash.com/photo-1596462502278-af7c619b3fbb?w=500&h=500&fit=crop"
@@ -95,7 +95,7 @@ const products = [
   },
   {
     name: "زيت جوز الهند العضوي",
-    description: "زيت جوز الهند الطبيعي النقي للعناي�� الشاملة",
+    description: "زيت جوز الهند الطبيعي النقي للعناية الشاملة",
     price: 279,
     categoryId: "زيوت الوجه",
     imageUrl: "https://images.unsplash.com/photo-1556228578-8c89e6adf883?w=500&h=500&fit=crop"
