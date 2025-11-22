@@ -223,7 +223,6 @@ export default function HomePage() {
             <div className="categories-filter mb-12">
               <div className="categories-scroll overflow-x-auto pb-2 flex gap-3 justify-center">
                 <CategoryChip
-                  id="all"
                   name="جميع المنتجات"
                   isActive={selectedCategory === "all"}
                   onClick={() => handleCategorySelect("all")}
@@ -231,7 +230,6 @@ export default function HomePage() {
                 {categories.map((category) => (
                   <CategoryChip
                     key={category.id}
-                    id={category.id}
                     name={category.name}
                     isActive={selectedCategory === category.id}
                     onClick={() => handleCategorySelect(category.id)}

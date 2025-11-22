@@ -7,7 +7,7 @@ import {
   addDoc,
   Timestamp,
 } from "firebase/firestore";
-import type { Product, Category, CartItem } from "../types";
+import type { Product, Category } from "../types";
 
 export interface OrderItem {
   productId: string;
