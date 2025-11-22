@@ -1,0 +1,147 @@
+@import "tailwindcss";
+@plugin "daisyui";
+@plugin "daisyui/theme" {
+  name: "oliva-light";
+  default: true;
+  color-scheme: light;
+
+  --font-sans: Inter, ui-sans-serif, system-ui, Segoe UI, Roboto,
+    Helvetica Neue, Arial, Noto Sans, Apple Color Emoji,
+    Segoe UI Emoji, Segoe UI Symbol;
+
+  /* خلفيات فاتحة ناعمة */
+  --color-base-100: #F8F9F7; /* أبيض زيتوني ناعم */
+  --color-base-200: #E4E6E2; /* رمادي زيتوني باهت */
+  --color-base-300: #D4D7D0; /* أغمق قليلًا */
+  --color-base-content: #164E2A; /* نص أخضر داكن */
+
+  /* ألوان رئيسية مستوحاة من الشعار */
+  --color-primary: #164E2A; /* أخضر داكن */
+  --color-primary-content: #FFFFFF;
+
+  --color-secondary: #6B7E4E; /* أخضر زيتي */
+  --color-secondary-content: #FFFFFF;
+
+  --color-accent: #A7C48D; /* أخضر فاتح */
+  --color-accent-content: #164E2A;
+
+  --color-neutral: #A67C52; /* برونزي طبيعي */
+  --color-neutral-content: #FFFFFF;
+
+  /* إشعارات */
+  --color-info: #7FB2CE; 
+  --color-success: #6BAF5D;
+  --color-warning: #DCA740;
+  --color-error: #C46457;
+}
+@plugin "daisyui/theme" {
+  name: "oliva-dark";
+  color-scheme: dark;
+
+  --font-sans: Inter, ui-sans-serif, system-ui, Segoe UI, Roboto,
+    Helvetica Neue, Arial, Noto Sans, Apple Color Emoji,
+    Segoe UI Emoji, Segoe UI Symbol;
+
+  /* خلفيات غامقة ذات طابع نباتي ترابي */
+  --color-base-100: #1A1F1C; /* أخضر فاحم غامق */
+  --color-base-200: #222924; /* أخضر ترابي داكن */
+  --color-base-300: #2E3831; /* أخضر فحمي مائل للرمادي */
+  --color-base-content: #E8EFE8; /* نص فاتح زيتوني */
+
+  /* ألوان رئيسية */
+  --color-primary: #72A67C; /* أخضر فاتح مشبع */
+  --color-primary-content: #1A1F1C;
+
+  --color-secondary: #8FB98F; /* أخضر بارد */
+  --color-secondary-content: #1A1F1C;
+
+  --color-accent: #C8DDBF; /* أخضر باهت فاتح */
+  --color-accent-content: #1A1F1C;
+
+  --color-neutral: #A67C52; /* نفس البرونزي الطبيعي */
+  --color-neutral-content: #F5F2ED;
+
+  /* إشعارات */
+  --color-info: #8EC4DD; 
+  --color-success: #6BBF74;
+  --color-warning: #E7C26A;
+  --color-error: #D98678;
+}
+/* Base reset for inserted SVG */
+.jewel-logo-root svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+/* Each path will be animated using stroke-dash techniques.
+   --logo-loop-duration : total seconds of one loop (provided from TS props)
+   --logo-delay : per-element start delay (set inline in JS)
+*/
+.anim-path {
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  /* default dash values are large; we'll animate offsets */
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+
+  /* Use CSS custom properties from inline style for timing */
+  animation-name: drawLoop;
+  animation-duration: var(--logo-loop-duration, 4s);
+  animation-timing-function: cubic-bezier(0.4,0.0,0.2,1);
+  animation-iteration-count: infinite;
+  animation-delay: var(--logo-delay, 0s);
+
+  /* make sure paths are visible when drawn */
+  opacity: 0;
+  will-change: stroke-dashoffset, opacity;
+}
+
+/* Smooth slight glow that appears when the stroke is visible */
+.anim-path {
+  filter: drop-shadow(0 1px 0 rgba(0,0,0,0.03));
+}
+
+/* The loop: draw in, hold, then slide out and fade */
+@keyframes drawLoop {
+  0% {
+    stroke-dashoffset: 1000;
+    opacity: 0;
+  }
+
+  15% {
+    /* finish drawing */
+    stroke-dashoffset: 0;
+    opacity: 1;
+  }
+
+  55% {
+    /* hold visible */
+    stroke-dashoffset: 0;
+    opacity: 1;
+  }
+
+  100% {
+    /* slide out and fade */
+    stroke-dashoffset: -1000;
+    opacity: 0;
+  }
+}
+
+/* Optional hover interaction: pause animation on hover (desktop) */
+.jewel-logo-root:hover .anim-path {
+  animation-play-state: paused;
+  transform-origin: center;
+  transition: transform 200ms ease;
+  transform: scale(1.02);
+}
+
+/* Accessibility: reduce motion preference */
+@media (prefers-reduced-motion: reduce) {
+  .anim-path {
+    animation: none;
+    opacity: 1;
+    stroke-dashoffset: 0;
+  }
+}
