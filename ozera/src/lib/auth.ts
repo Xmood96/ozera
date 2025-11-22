@@ -4,7 +4,7 @@ import {
   signInWithEmailAndPassword,
   signOut,
   onAuthStateChanged,
-  User,
+  type User,
 } from "firebase/auth";
 
 export async function registerUser(email: string, password: string): Promise<User> {
