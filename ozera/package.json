@@ -8,7 +8,8 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "seed": "node scripts/seed-firebase.js"
+    "seed": "node scripts/seed-firebase.js",
+    "create-admin": "node scripts/create-admin-user.js"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.1.17",
@@ -16,7 +17,6 @@
     "firebase": "^12.6.0",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
-    "react-router-dom": "^7.9.6",
     "tailwindcss": "^4.1.17"
   },
   "devDependencies": {

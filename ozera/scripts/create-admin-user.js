@@ -34,7 +34,7 @@ async function createAdminUser() {
       console.log(`كلمة المرور: ${adminPassword}`);
       console.log(`UID: ${userCredential.user.uid}\n`);
       console.log("🔐 استخدم هذه البيانات لتسجيل الدخول إلى لوحة التحكم\n");
-    } catch (error: any) {
+    } catch (error) {
       if (error.code === "auth/email-already-in-use") {
         console.log("⚠️ حساب المسؤول موجود بالفعل\n");
         console.log("📧 بيانات الدخول:");
