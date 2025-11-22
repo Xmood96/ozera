@@ -1,4 +1,3 @@
-import React from "react";
 import JewelLogo from "../assets/logoanim";
 
 const PHONE_NUMBER = "201271772724";

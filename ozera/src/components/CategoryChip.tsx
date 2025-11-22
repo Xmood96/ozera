@@ -1,15 +1,11 @@
-import React from "react";
-
 interface CategoryChipProps {
   name: string;
-  id: string;
   isActive: boolean;
   onClick: () => void;
 }
 
 export default function CategoryChip({
   name,
-  id,
   isActive,
   onClick,
 }: CategoryChipProps) {

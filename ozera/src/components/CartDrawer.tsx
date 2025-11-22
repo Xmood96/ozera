@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { CartItem } from "../types";
+import { useState } from "react";
+import type { CartItem } from "../types";
 
 interface CartDrawerProps {
   isOpen: boolean;

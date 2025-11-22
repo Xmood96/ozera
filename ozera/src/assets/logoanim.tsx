@@ -1,5 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
-
+import { useEffect, useRef, useState } from "react";
 
 type JewelLogoProps = {
   /** path to svg file in public folder, default /logo.svg */

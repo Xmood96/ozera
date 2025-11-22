@@ -1,6 +1,6 @@
-import React, { useEffect, useState, useRef } from "react";
-import { Product, CartItem, Category } from "../types";
-import { getCategories, getProducts, saveOrder, OrderItem } from "../lib/firestore";
+import { useEffect, useState, useRef } from "react";
+import type { Product, CartItem, Category } from "../types";
+import { getCategories, getProducts, saveOrder, type OrderItem } from "../lib/firestore";
 import HeroSection from "../components/HeroSection";
 import ProductCard from "../components/ProductCard";
 import CategoryChip from "../components/CategoryChip";
@@ -15,7 +15,6 @@ export default function HomePage() {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
-  const [isSavingOrder, setIsSavingOrder] = useState(false);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
   const productsRef = useRef<HTMLDivElement>(null);
@@ -149,8 +148,6 @@ export default function HomePage() {
     }));
 
     try {
-      setIsSavingOrder(true);
-
       await saveOrder({
         items: orderItems,
         totalAmount,
@@ -173,8 +170,6 @@ export default function HomePage() {
       console.error("Error saving order:", error);
       setSuccessMessage("حدث خطأ في حفظ الطلب. يرجى المحاولة مجددًا.");
       setTimeout(() => setSuccessMessage(null), 5000);
-    } finally {
-      setIsSavingOrder(false);
     }
   };
 

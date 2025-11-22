@@ -6,9 +6,8 @@ import {
   where,
   addDoc,
   Timestamp,
-  QueryConstraint,
 } from "firebase/firestore";
-import { Product, Category, CartItem } from "../types";
+import type { Product, Category, CartItem } from "../types";
 
 export interface OrderItem {
   productId: string;
