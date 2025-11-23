@@ -137,28 +137,34 @@ export default function ProductsManagement() {
 
   return (
     <div className="products-management">
-      <div className="flex items-center justify-between mb-6">
-        <h2 className="text-3xl font-bold text-primary">إدارة المنتجات</h2>
+      <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-8 gap-4">
+        <div>
+          <h2 className="text-4xl font-bold text-primary mb-2">📦 إدارة المنتجات</h2>
+          <p className="text-base-content opacity-60">إضافة وتعديل وحذف المنتجات</p>
+        </div>
         <button
           onClick={() => handleOpenModal()}
-          className="btn btn-primary rounded-lg"
+          className="btn btn-primary rounded-lg font-bold shadow-lg hover:shadow-xl transition-shadow"
         >
           ➕ إضافة منتج جديد
         </button>
       </div>
 
       {isLoading ? (
-        <div className="flex items-center justify-center py-12">
-          <div className="loading loading-spinner loading-lg text-primary" />
+        <div className="flex items-center justify-center py-16">
+          <div className="text-center">
+            <span className="loading loading-spinner loading-lg text-primary" />
+            <p className="mt-4 text-base-content opacity-60">جاري تحميل المنتجات...</p>
+          </div>
         </div>
       ) : products.length === 0 ? (
-        <div className="alert alert-info">
-          <span>لا توجد منتجات حالياً. انقر على "إضافة منتج جديد"</span>
+        <div className="alert alert-info bg-blue-50 border-blue-200 text-blue-900">
+          <span>🎯 لا توجد منتجات حالياً. انقر على "إضافة منتج جديد"</span>
         </div>
       ) : (
-        <div className="overflow-x-auto bg-base-100 rounded-lg shadow">
+        <div className="overflow-x-auto bg-base-100 rounded-2xl shadow-lg">
           <table className="table">
-            <thead className="bg-primary text-primary-content">
+            <thead className="bg-gradient-to-r from-primary to-primary-focus text-primary-content">
               <tr>
                 <th>الصورة</th>
                 <th>الاسم</th>
