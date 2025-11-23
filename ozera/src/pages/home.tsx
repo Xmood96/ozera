@@ -128,14 +128,8 @@ export default function HomePage() {
   };
 
   // Handle checkout
-  const handleCheckout = async () => {
+  const handleCheckout = async (customerPhone: string, deliveryAddress: string) => {
     if (cartItems.length === 0) return;
-
-    // Get phone from cart drawer (we'll collect it during checkout)
-    const phoneInput = document.querySelector(
-      ".checkout-form input[type='tel']"
-    ) as HTMLInputElement | null;
-    const customerPhone = phoneInput?.value || "";
 
     const totalAmount = cartItems.reduce((sum, item) => sum + item.total, 0);
 
@@ -154,6 +148,7 @@ export default function HomePage() {
         createdAt: new Date() as any,
         status: "pending",
         customerPhone,
+        deliveryAddress,
       });
 
       // Clear cart and close drawer
