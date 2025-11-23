@@ -21,19 +21,27 @@ export default function HomePage() {
 
   // Load categories and products on mount
   useEffect(() => {
+    let isMounted = true;
+
     const loadInitialData = async () => {
+      if (!isMounted) return;
       setIsLoading(true);
       try {
         const [categoriesData, productsData] = await Promise.all([
           getCategories(),
           getProducts(),
         ]);
+        if (!isMounted) return;
         setCategories(categoriesData);
         setProducts(productsData);
       } catch (error) {
-        console.error("Error loading data:", error);
+        if (isMounted) {
+          console.error("Error loading data:", error);
+        }
       } finally {
-        setIsLoading(false);
+        if (isMounted) {
+          setIsLoading(false);
+        }
       }
     };
 
@@ -41,13 +49,17 @@ export default function HomePage() {
 
     // Load cart from localStorage
     const savedCart = localStorage.getItem("ozera-cart");
-    if (savedCart) {
+    if (savedCart && isMounted) {
       try {
         setCartItems(JSON.parse(savedCart));
       } catch (error) {
         console.error("Error loading cart from localStorage:", error);
       }
     }
+
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   // Save cart to localStorage whenever it changes
@@ -57,22 +69,35 @@ export default function HomePage() {
 
   // Handle category selection
   const handleCategorySelect = async (categoryId: string) => {
+    let isMounted = true;
     setSelectedCategory(categoryId);
     setIsLoading(true);
 
     try {
       const productsData = await getProducts(categoryId === "all" ? undefined : categoryId);
-      setProducts(productsData);
+      if (isMounted) {
+        setProducts(productsData);
+      }
     } catch (error) {
-      console.error("Error loading products:", error);
+      if (isMounted) {
+        console.error("Error loading products:", error);
+      }
     } finally {
-      setIsLoading(false);
+      if (isMounted) {
+        setIsLoading(false);
+      }
     }
 
     // Scroll to products section
     setTimeout(() => {
-      productsRef.current?.scrollIntoView({ behavior: "smooth" });
+      if (isMounted) {
+        productsRef.current?.scrollIntoView({ behavior: "smooth" });
+      }
     }, 100);
+
+    return () => {
+      isMounted = false;
+    };
   };
 
   // Handle add to cart
@@ -168,7 +193,7 @@ export default function HomePage() {
       setTimeout(() => setSuccessMessage(null), 5000);
     } catch (error) {
       console.error("Error saving order:", error);
-      setSuccessMessage("حدث خطأ في حفظ الطلب. يرجى المحاولة مجددًا.");
+      setSuccessMessage("حدث خطأ في حفظ ا��طلب. يرجى المحاولة مجددًا.");
       setTimeout(() => setSuccessMessage(null), 5000);
     }
   };
