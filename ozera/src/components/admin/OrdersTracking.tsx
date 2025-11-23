@@ -101,6 +101,66 @@ export default function OrdersTracking() {
     });
   };
 
+  const formatDateForInput = (timestamp: any) => {
+    if (!timestamp) return "";
+    const date = timestamp.toDate ? timestamp.toDate() : new Date(timestamp);
+    return date.toISOString().split('T')[0];
+  };
+
+  const getFilteredOrders = () => {
+    let filtered = [...orders];
+
+    // Filter by status
+    if (statusFilter !== "all") {
+      filtered = filtered.filter((order) => order.status === statusFilter);
+    }
+
+    // Filter by phone
+    if (phoneFilter.trim()) {
+      filtered = filtered.filter((order) =>
+        order.customerPhone?.includes(phoneFilter.trim())
+      );
+    }
+
+    // Filter by delivery address
+    if (addressFilter.trim()) {
+      filtered = filtered.filter((order) =>
+        order.deliveryAddress?.toLowerCase().includes(addressFilter.toLowerCase())
+      );
+    }
+
+    // Filter by date range
+    if (dateFromFilter) {
+      const fromDate = new Date(dateFromFilter);
+      fromDate.setHours(0, 0, 0, 0);
+      filtered = filtered.filter((order) => {
+        const orderDate = order.createdAt.toDate ? order.createdAt.toDate() : new Date(order.createdAt);
+        return orderDate >= fromDate;
+      });
+    }
+
+    if (dateToFilter) {
+      const toDate = new Date(dateToFilter);
+      toDate.setHours(23, 59, 59, 999);
+      filtered = filtered.filter((order) => {
+        const orderDate = order.createdAt.toDate ? order.createdAt.toDate() : new Date(order.createdAt);
+        return orderDate <= toDate;
+      });
+    }
+
+    return filtered;
+  };
+
+  const filteredOrders = getFilteredOrders();
+  const totalPages = Math.ceil(filteredOrders.length / itemsPerPage);
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const paginatedOrders = filteredOrders.slice(startIndex, startIndex + itemsPerPage);
+
+  // Reset to first page when filters change
+  const handleFilterChange = () => {
+    setCurrentPage(1);
+  };
+
   return (
     <div className="orders-tracking">
       <div className="mb-6">
@@ -166,7 +226,7 @@ export default function OrdersTracking() {
                 <div>
                   <p className="text-xs opacity-75">الهاتف</p>
                   <p className="text-lg font-bold">
-                    {order.customerPhone || "لم يتم إ��خاله"}
+                    {order.customerPhone || "لم يتم إدخاله"}
                   </p>
                 </div>
                 <div>
