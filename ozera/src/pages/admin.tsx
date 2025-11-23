@@ -25,42 +25,44 @@ export default function AdminPage() {
   };
 
   return (
-    <div className="admin-dashboard min-h-screen bg-base-200 flex" dir="rtl">
+    <div className="admin-dashboard min-h-screen bg-gradient-to-br from-base-100 to-base-200 flex" dir="rtl">
       {/* Sidebar */}
-      <aside className="admin-sidebar w-64 bg-primary text-primary-content p-6 hidden lg:block sticky top-0 h-screen overflow-y-auto">
-        <div className="sidebar-header mb-8">
-          <h1 className="text-2xl font-bold">OZERA</h1>
-          <p className="text-sm opacity-80">لوحة التحكم</p>
+      <aside className="admin-sidebar w-64 bg-gradient-to-b from-primary to-primary-focus text-primary-content p-6 hidden lg:flex lg:flex-col sticky top-0 h-screen overflow-y-auto shadow-2xl">
+        <div className="sidebar-header mb-10">
+          <div className="bg-primary-content bg-opacity-20 rounded-lg p-4 mb-4 text-center">
+            <h1 className="text-3xl font-bold">OZERA</h1>
+          </div>
+          <p className="text-sm opacity-90 text-center font-semibold">🎛️ لوحة التحكم الرئيسية</p>
         </div>
 
         {/* Navigation */}
-        <nav className="sidebar-nav space-y-2">
+        <nav className="sidebar-nav flex-1 space-y-2">
           <button
             onClick={() => setActiveTab("products")}
-            className={`w-full text-right px-4 py-3 rounded-lg transition-all ${
+            className={`w-full text-right px-4 py-4 rounded-xl transition-all duration-300 font-semibold ${
               activeTab === "products"
-                ? "bg-primary-focus shadow-lg"
-                : "hover:bg-primary-focus hover:bg-opacity-50"
+                ? "bg-primary-content bg-opacity-20 shadow-lg border-l-4 border-primary-content"
+                : "hover:bg-primary-content hover:bg-opacity-10"
             }`}
           >
             📦 إدارة المنتجات
           </button>
           <button
             onClick={() => setActiveTab("categories")}
-            className={`w-full text-right px-4 py-3 rounded-lg transition-all ${
+            className={`w-full text-right px-4 py-4 rounded-xl transition-all duration-300 font-semibold ${
               activeTab === "categories"
-                ? "bg-primary-focus shadow-lg"
-                : "hover:bg-primary-focus hover:bg-opacity-50"
+                ? "bg-primary-content bg-opacity-20 shadow-lg border-l-4 border-primary-content"
+                : "hover:bg-primary-content hover:bg-opacity-10"
             }`}
           >
             📂 إدارة الفئات
           </button>
           <button
             onClick={() => setActiveTab("orders")}
-            className={`w-full text-right px-4 py-3 rounded-lg transition-all ${
+            className={`w-full text-right px-4 py-4 rounded-xl transition-all duration-300 font-semibold ${
               activeTab === "orders"
-                ? "bg-primary-focus shadow-lg"
-                : "hover:bg-primary-focus hover:bg-opacity-50"
+                ? "bg-primary-content bg-opacity-20 shadow-lg border-l-4 border-primary-content"
+                : "hover:bg-primary-content hover:bg-opacity-10"
             }`}
           >
             📋 تتبع الطلبات
@@ -68,11 +70,11 @@ export default function AdminPage() {
         </nav>
 
         {/* Logout */}
-        <div className="sidebar-footer mt-auto pt-8 border-t border-primary-focus">
+        <div className="sidebar-footer pt-8 border-t border-primary-content border-opacity-30">
           <button
             onClick={handleLogout}
             disabled={isLoggingOut}
-            className="btn btn-outline btn-sm w-full text-primary-content border-primary-content hover:bg-primary-content hover:text-primary"
+            className="btn btn-outline btn-sm w-full text-primary-content border-primary-content hover:bg-primary-content hover:text-primary rounded-lg font-semibold transition-all"
           >
             {isLoggingOut ? (
               <>
@@ -80,7 +82,7 @@ export default function AdminPage() {
                 جاري...
               </>
             ) : (
-              "تسجيل خروج"
+              "🚪 تسجيل خروج"
             )}
           </button>
         </div>
@@ -89,31 +91,31 @@ export default function AdminPage() {
       {/* Main Content */}
       <main className="admin-main flex-1 overflow-auto">
         {/* Mobile Header */}
-        <div className="lg:hidden sticky top-0 bg-primary text-primary-content p-4 flex items-center justify-between z-10">
-          <h1 className="text-xl font-bold">OZERA - لوحة التحكم</h1>
+        <div className="lg:hidden sticky top-0 bg-gradient-to-r from-primary to-primary-focus text-primary-content p-4 flex items-center justify-between z-10 shadow-lg">
+          <h1 className="text-lg font-bold">🎛️ OZERA</h1>
           <div className="dropdown dropdown-end">
             <button tabIndex={0} className="btn btn-sm btn-ghost text-primary-content">
               ☰
             </button>
-            <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
+            <ul tabIndex={0} className="dropdown-content z-[1] menu p-3 shadow bg-base-100 rounded-box w-56">
               <li>
-                <a onClick={() => setActiveTab("products")}>📦 إدارة المنتجات</a>
+                <a onClick={() => setActiveTab("products")} className="font-semibold">📦 إدارة المنتجات</a>
               </li>
               <li>
-                <a onClick={() => setActiveTab("categories")}>📂 إدارة الفئات</a>
+                <a onClick={() => setActiveTab("categories")} className="font-semibold">📂 إدارة الفئات</a>
               </li>
               <li>
-                <a onClick={() => setActiveTab("orders")}>📋 تتبع الطلبات</a>
+                <a onClick={() => setActiveTab("orders")} className="font-semibold">📋 تتبع الطلبات</a>
               </li>
-              <li>
-                <a onClick={handleLogout}>تسجيل خروج</a>
+              <li className="border-t border-base-300 mt-2">
+                <a onClick={handleLogout} className="font-semibold text-error">🚪 تسجيل خروج</a>
               </li>
             </ul>
           </div>
         </div>
 
         {/* Content */}
-        <div className="admin-content p-6">
+        <div className="admin-content p-8">
           {activeTab === "products" && <ProductsManagement />}
           {activeTab === "categories" && <CategoriesManagement />}
           {activeTab === "orders" && <OrdersTracking />}
