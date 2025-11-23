@@ -26,6 +26,17 @@ export default function OrdersTracking() {
   const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  // Filters
+  const [statusFilter, setStatusFilter] = useState<string>("all");
+  const [phoneFilter, setPhoneFilter] = useState<string>("");
+  const [addressFilter, setAddressFilter] = useState<string>("");
+  const [dateFromFilter, setDateFromFilter] = useState<string>("");
+  const [dateToFilter, setDateToFilter] = useState<string>("");
+
+  // Pagination
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10;
+
   useEffect(() => {
     loadOrders();
   }, []);
