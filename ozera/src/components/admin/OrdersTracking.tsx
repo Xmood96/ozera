@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { collection, getDocs, updateDoc, doc, query, orderBy } from "firebase/firestore";
 import { db } from "../../firebase";
 
@@ -37,38 +37,61 @@ export default function OrdersTracking() {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
 
+  // Track if component is mounted to prevent state updates on unmounted component
+  const isMountedRef = useRef(true);
+
   useEffect(() => {
+    isMountedRef.current = true;
     loadOrders();
+
+    return () => {
+      isMountedRef.current = false;
+    };
   }, []);
 
   const loadOrders = async () => {
+    if (!isMountedRef.current) return;
+
     setIsLoading(true);
     try {
       const q = query(collection(db, "orders"), orderBy("createdAt", "desc"));
       const snapshot = await getDocs(q);
+
+      if (!isMountedRef.current) return;
+
       const ordersData = snapshot.docs.map((doc) => ({
         id: doc.id,
         ...doc.data(),
       })) as Order[];
       setOrders(ordersData);
     } catch (error) {
+      if (!isMountedRef.current) return;
       console.error("Error loading orders:", error);
     } finally {
-      setIsLoading(false);
+      if (isMountedRef.current) {
+        setIsLoading(false);
+      }
     }
   };
 
   const handleStatusChange = async (orderId: string, newStatus: "pending" | "paid" | "in_delivery" | "completed" | "cancelled") => {
+    if (!isMountedRef.current) return;
+
     try {
       const orderRef = doc(db, "orders", orderId);
       await updateDoc(orderRef, { status: newStatus });
-      await loadOrders();
-      if (selectedOrder?.id === orderId) {
-        setSelectedOrder(null);
-        setIsModalOpen(false);
+
+      if (isMountedRef.current) {
+        await loadOrders();
+        if (selectedOrder?.id === orderId) {
+          setSelectedOrder(null);
+          setIsModalOpen(false);
+        }
       }
     } catch (error) {
-      console.error("Error updating order status:", error);
+      if (isMountedRef.current) {
+        console.error("Error updating order status:", error);
+      }
     }
   };
 
