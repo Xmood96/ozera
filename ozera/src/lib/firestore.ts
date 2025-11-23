@@ -22,8 +22,9 @@ export interface Order {
   items: OrderItem[];
   totalAmount: number;
   createdAt: Timestamp;
-  status: "pending" | "completed" | "cancelled";
+  status: "pending" | "paid" | "in_delivery" | "completed" | "cancelled";
   customerPhone?: string;
+  deliveryAddress?: string;
 }
 
 // Fetch all categories
@@ -83,6 +84,7 @@ export async function saveOrder(order: Order): Promise<string> {
       createdAt: Timestamp.now(),
       status: "pending",
       customerPhone: order.customerPhone,
+      deliveryAddress: order.deliveryAddress,
     });
     return docRef.id;
   } catch (error) {
