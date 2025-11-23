@@ -117,11 +117,18 @@ export default function ProductsManagement() {
 
   const handleDelete = async (productId: string) => {
     if (!confirm("هل تريد حذف هذا المنتج؟")) return;
+    if (!isMountedRef.current) return;
+
     try {
       await deleteDoc(doc(db, "products", productId));
-      await loadData();
+
+      if (isMountedRef.current) {
+        await loadData();
+      }
     } catch (error) {
-      console.error("Error deleting product:", error);
+      if (isMountedRef.current) {
+        console.error("Error deleting product:", error);
+      }
     }
   };
 
