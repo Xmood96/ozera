@@ -20,15 +20,17 @@ export default function CartDrawer({
 }: CartDrawerProps) {
   const [isCheckoutMode, setIsCheckoutMode] = useState(false);
   const [phone, setPhone] = useState("");
+  const [deliveryAddress, setDeliveryAddress] = useState("");
 
   const totalPrice = items.reduce((sum, item) => sum + item.total, 0);
   const itemCount = items.reduce((sum, item) => sum + item.quantity, 0);
 
   const handleCheckout = () => {
-    if (phone.trim()) {
+    if (phone.trim() && deliveryAddress.trim()) {
       onCheckout();
       setIsCheckoutMode(false);
       setPhone("");
+      setDeliveryAddress("");
     }
   };
 
@@ -171,6 +173,20 @@ export default function CartDrawer({
                     />
                   </div>
 
+                  <div className="form-group">
+                    <label className="block text-sm font-semibold mb-2">
+                      عنوان التوصيل
+                    </label>
+                    <textarea
+                      value={deliveryAddress}
+                      onChange={(e) => setDeliveryAddress(e.target.value)}
+                      placeholder="أدخل عنوانك الكامل للتوصيل"
+                      className="textarea textarea-bordered w-full rounded-lg"
+                      dir="rtl"
+                      rows={3}
+                    />
+                  </div>
+
                   <div className="checkout-summary bg-base-200 rounded-lg p-3">
                     <p className="text-sm opacity-75 mb-1">الإجمالي:</p>
                     <p className="text-2xl font-bold text-primary">
@@ -180,7 +196,7 @@ export default function CartDrawer({
 
                   <button
                     onClick={handleCheckout}
-                    disabled={!phone.trim()}
+                    disabled={!phone.trim() || !deliveryAddress.trim()}
                     className="btn btn-primary w-full rounded-lg"
                   >
                     تأكيد الطلب
