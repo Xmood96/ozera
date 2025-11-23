@@ -19,24 +19,36 @@ export default function ProductsManagement() {
   });
 
   useEffect(() => {
-    loadData();
-  }, []);
+    let isMounted = true;
 
-  const loadData = async () => {
-    setIsLoading(true);
-    try {
-      const [productsData, categoriesData] = await Promise.all([
-        getProducts(),
-        getCategories(),
-      ]);
-      setProducts(productsData);
-      setCategories(categoriesData);
-    } catch (error) {
-      console.error("Error loading data:", error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
+    const loadData = async () => {
+      if (!isMounted) return;
+      setIsLoading(true);
+      try {
+        const [productsData, categoriesData] = await Promise.all([
+          getProducts(),
+          getCategories(),
+        ]);
+        if (!isMounted) return;
+        setProducts(productsData);
+        setCategories(categoriesData);
+      } catch (error) {
+        if (isMounted) {
+          console.error("Error loading data:", error);
+        }
+      } finally {
+        if (isMounted) {
+          setIsLoading(false);
+        }
+      }
+    };
+
+    loadData();
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
 
   const handleOpenModal = (product?: Product) => {
     if (product) {
@@ -68,6 +80,7 @@ export default function ProductsManagement() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    let isMounted = true;
     try {
       if (editingProduct) {
         // Update product
@@ -85,21 +98,62 @@ export default function ProductsManagement() {
           updatedAt: Timestamp.now(),
         });
       }
-      await loadData();
-      handleCloseModal();
+      if (!isMounted) return;
+
+      setIsLoading(true);
+      try {
+        const [productsData, categoriesData] = await Promise.all([
+          getProducts(),
+          getCategories(),
+        ]);
+        if (!isMounted) return;
+        setProducts(productsData);
+        setCategories(categoriesData);
+        handleCloseModal();
+      } finally {
+        if (isMounted) {
+          setIsLoading(false);
+        }
+      }
     } catch (error) {
-      console.error("Error saving product:", error);
+      if (isMounted) {
+        console.error("Error saving product:", error);
+      }
     }
+    return () => {
+      isMounted = false;
+    };
   };
 
   const handleDelete = async (productId: string) => {
     if (!confirm("هل تريد حذف هذا المنتج؟")) return;
+    let isMounted = true;
     try {
       await deleteDoc(doc(db, "products", productId));
-      await loadData();
+      if (!isMounted) return;
+
+      setIsLoading(true);
+      try {
+        const [productsData, categoriesData] = await Promise.all([
+          getProducts(),
+          getCategories(),
+        ]);
+        if (!isMounted) return;
+        setProducts(productsData);
+        setCategories(categoriesData);
+      } finally {
+        if (isMounted) {
+          setIsLoading(false);
+        }
+      }
     } catch (error) {
-      console.error("Error deleting product:", error);
+      if (isMounted) {
+        console.error("Error deleting product:", error);
+      }
     }
+    return () => {
+      isMounted = false;
+    };
   };
 
   const getCategoryName = (categoryId: string) => {
@@ -202,7 +256,7 @@ export default function ProductsManagement() {
 
               <div className="form-control">
                 <label className="label">
-                  <span className="label-text">ا��وصف</span>
+                  <span className="label-text">الوصف</span>
                 </label>
                 <textarea
                   value={formData.description}
@@ -274,7 +328,7 @@ export default function ProductsManagement() {
                   إلغاء
                 </button>
                 <button type="submit" className="btn btn-primary">
-                  {editingProduct ? "حف�� التغييرات" : "إضافة"}
+                  {editingProduct ? "حفظ التغييرات" : "إضافة"}
                 </button>
               </div>
             </form>
