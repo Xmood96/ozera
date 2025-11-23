@@ -11,19 +11,34 @@ export default function CategoriesManagement() {
   const [editingCategory, setEditingCategory] = useState<Category | null>(null);
   const [categoryName, setCategoryName] = useState("");
 
+  const isMountedRef = useRef(true);
+
   useEffect(() => {
+    isMountedRef.current = true;
     loadCategories();
+
+    return () => {
+      isMountedRef.current = false;
+    };
   }, []);
 
   const loadCategories = async () => {
+    if (!isMountedRef.current) return;
+
     setIsLoading(true);
     try {
       const data = await getCategories();
+
+      if (!isMountedRef.current) return;
+
       setCategories(data);
     } catch (error) {
+      if (!isMountedRef.current) return;
       console.error("Error loading categories:", error);
     } finally {
-      setIsLoading(false);
+      if (isMountedRef.current) {
+        setIsLoading(false);
+      }
     }
   };
 
