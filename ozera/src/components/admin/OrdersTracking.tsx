@@ -58,7 +58,7 @@ export default function OrdersTracking() {
     }
   };
 
-  const handleStatusChange = async (orderId: string, newStatus: "pending" | "completed" | "cancelled") => {
+  const handleStatusChange = async (orderId: string, newStatus: "pending" | "paid" | "in_delivery" | "completed" | "cancelled") => {
     try {
       const orderRef = doc(db, "orders", orderId);
       await updateDoc(orderRef, { status: newStatus });
