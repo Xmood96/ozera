@@ -401,6 +401,10 @@ export default function OrdersTracking() {
                   {getStatusBadge(selectedOrder.status)}
                 </div>
               </div>
+              <div className="bg-base-100 p-3 rounded-lg">
+                <p className="text-sm opacity-75 mb-1">عنوان التوصيل</p>
+                <p className="font-semibold">{selectedOrder.deliveryAddress || "لم يتم إدخاله"}</p>
+              </div>
             </div>
 
             {/* Items */}
@@ -439,12 +443,14 @@ export default function OrdersTracking() {
                 onChange={(e) =>
                   handleStatusChange(
                     selectedOrder.id,
-                    e.target.value as "pending" | "completed" | "cancelled"
+                    e.target.value as "pending" | "paid" | "in_delivery" | "completed" | "cancelled"
                   )
                 }
                 className="select select-bordered w-full"
               >
                 <option value="pending">قيد الانتظار</option>
+                <option value="paid">تم الدفع</option>
+                <option value="in_delivery">قيد التوصيل</option>
                 <option value="completed">مكتمل</option>
                 <option value="cancelled">ملغى</option>
               </select>
