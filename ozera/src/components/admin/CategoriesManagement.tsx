@@ -46,6 +46,7 @@ export default function CategoriesManagement() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    let isMounted = true;
     try {
       if (editingCategory) {
         // Update category
@@ -59,21 +60,54 @@ export default function CategoriesManagement() {
           categoryName: categoryName,
         });
       }
-      await loadCategories();
-      handleCloseModal();
+      if (!isMounted) return;
+
+      setIsLoading(true);
+      try {
+        const data = await getCategories();
+        if (!isMounted) return;
+        setCategories(data);
+        handleCloseModal();
+      } finally {
+        if (isMounted) {
+          setIsLoading(false);
+        }
+      }
     } catch (error) {
-      console.error("Error saving category:", error);
+      if (isMounted) {
+        console.error("Error saving category:", error);
+      }
     }
+    return () => {
+      isMounted = false;
+    };
   };
 
   const handleDelete = async (categoryId: string) => {
     if (!confirm("هل تريد حذف هذه الفئة؟")) return;
+    let isMounted = true;
     try {
       await deleteDoc(doc(db, "categories", categoryId));
-      await loadCategories();
+      if (!isMounted) return;
+
+      setIsLoading(true);
+      try {
+        const data = await getCategories();
+        if (!isMounted) return;
+        setCategories(data);
+      } finally {
+        if (isMounted) {
+          setIsLoading(false);
+        }
+      }
     } catch (error) {
-      console.error("Error deleting category:", error);
+      if (isMounted) {
+        console.error("Error deleting category:", error);
+      }
     }
+    return () => {
+      isMounted = false;
+    };
   };
 
   return (
@@ -144,7 +178,7 @@ export default function CategoriesManagement() {
                   value={categoryName}
                   onChange={(e) => setCategoryName(e.target.value)}
                   className="input input-bordered"
-                  placeholder="مثال: كريمات التر��يب"
+                  placeholder="مثال: كريمات الترطيب"
                   required
                 />
               </div>
