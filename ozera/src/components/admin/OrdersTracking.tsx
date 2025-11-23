@@ -166,8 +166,105 @@ export default function OrdersTracking() {
       <div className="mb-6">
         <h2 className="text-3xl font-bold text-primary">تتبع الطلبات</h2>
         <p className="text-base-content opacity-75 mt-2">
-          إجمالي الطلبات: <span className="font-bold">{orders.length}</span>
+          إجمالي الطلبات: <span className="font-bold">{orders.length}</span> | الطلبات المعروضة: <span className="font-bold">{filteredOrders.length}</span>
         </p>
+      </div>
+
+      {/* Filters */}
+      <div className="filters-section bg-base-200 rounded-lg p-6 mb-6">
+        <h3 className="text-lg font-bold mb-4">الفلاتر والبحث</h3>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
+          <div className="filter-group">
+            <label className="block text-sm font-semibold mb-2">الحالة</label>
+            <select
+              value={statusFilter}
+              onChange={(e) => {
+                setStatusFilter(e.target.value);
+                handleFilterChange();
+              }}
+              className="select select-bordered w-full"
+            >
+              <option value="all">جميع الحالات</option>
+              <option value="pending">قيد الانتظا��</option>
+              <option value="paid">تم الدفع</option>
+              <option value="in_delivery">قيد التوصيل</option>
+              <option value="completed">مكتمل</option>
+              <option value="cancelled">ملغى</option>
+            </select>
+          </div>
+
+          <div className="filter-group">
+            <label className="block text-sm font-semibold mb-2">رقم الهاتف</label>
+            <input
+              type="text"
+              value={phoneFilter}
+              onChange={(e) => {
+                setPhoneFilter(e.target.value);
+                handleFilterChange();
+              }}
+              placeholder="ابحث برقم هاتف"
+              className="input input-bordered w-full"
+              dir="ltr"
+            />
+          </div>
+
+          <div className="filter-group">
+            <label className="block text-sm font-semibold mb-2">من التاريخ</label>
+            <input
+              type="date"
+              value={dateFromFilter}
+              onChange={(e) => {
+                setDateFromFilter(e.target.value);
+                handleFilterChange();
+              }}
+              className="input input-bordered w-full"
+            />
+          </div>
+
+          <div className="filter-group">
+            <label className="block text-sm font-semibold mb-2">إلى التاريخ</label>
+            <input
+              type="date"
+              value={dateToFilter}
+              onChange={(e) => {
+                setDateToFilter(e.target.value);
+                handleFilterChange();
+              }}
+              className="input input-bordered w-full"
+            />
+          </div>
+
+          <div className="filter-group">
+            <label className="block text-sm font-semibold mb-2">عنوان التوصيل</label>
+            <input
+              type="text"
+              value={addressFilter}
+              onChange={(e) => {
+                setAddressFilter(e.target.value);
+                handleFilterChange();
+              }}
+              placeholder="ابحث بالعنوان"
+              className="input input-bordered w-full"
+              dir="rtl"
+            />
+          </div>
+        </div>
+
+        {(statusFilter !== "all" || phoneFilter || addressFilter || dateFromFilter || dateToFilter) && (
+          <button
+            onClick={() => {
+              setStatusFilter("all");
+              setPhoneFilter("");
+              setAddressFilter("");
+              setDateFromFilter("");
+              setDateToFilter("");
+              setCurrentPage(1);
+            }}
+            className="btn btn-sm btn-outline mt-4"
+          >
+            إعادة تعيين الفلاتر
+          </button>
+        )}
       </div>
 
       {isLoading ? (
