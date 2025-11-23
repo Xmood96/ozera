@@ -84,6 +84,8 @@ export default function ProductsManagement() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!isMountedRef.current) return;
+
     try {
       if (editingProduct) {
         // Update product
@@ -101,10 +103,15 @@ export default function ProductsManagement() {
           updatedAt: Timestamp.now(),
         });
       }
-      await loadData();
-      handleCloseModal();
+
+      if (isMountedRef.current) {
+        await loadData();
+        handleCloseModal();
+      }
     } catch (error) {
-      console.error("Error saving product:", error);
+      if (isMountedRef.current) {
+        console.error("Error saving product:", error);
+      }
     }
   };
 
