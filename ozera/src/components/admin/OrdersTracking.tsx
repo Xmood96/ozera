@@ -26,38 +26,72 @@ export default function OrdersTracking() {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
+    let isMounted = true;
+
+    const loadOrders = async () => {
+      if (!isMounted) return;
+      setIsLoading(true);
+      try {
+        const q = query(collection(db, "orders"), orderBy("createdAt", "desc"));
+        const snapshot = await getDocs(q);
+        if (!isMounted) return;
+        const ordersData = snapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        })) as Order[];
+        setOrders(ordersData);
+      } catch (error) {
+        if (isMounted) {
+          console.error("Error loading orders:", error);
+        }
+      } finally {
+        if (isMounted) {
+          setIsLoading(false);
+        }
+      }
+    };
+
     loadOrders();
+
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
-  const loadOrders = async () => {
-    setIsLoading(true);
-    try {
-      const q = query(collection(db, "orders"), orderBy("createdAt", "desc"));
-      const snapshot = await getDocs(q);
-      const ordersData = snapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      })) as Order[];
-      setOrders(ordersData);
-    } catch (error) {
-      console.error("Error loading orders:", error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
   const handleStatusChange = async (orderId: string, newStatus: "pending" | "completed" | "cancelled") => {
+    let isMounted = true;
     try {
       const orderRef = doc(db, "orders", orderId);
       await updateDoc(orderRef, { status: newStatus });
-      await loadOrders();
-      if (selectedOrder?.id === orderId) {
-        setSelectedOrder(null);
-        setIsModalOpen(false);
+      if (!isMounted) return;
+
+      setIsLoading(true);
+      try {
+        const q = query(collection(db, "orders"), orderBy("createdAt", "desc"));
+        const snapshot = await getDocs(q);
+        if (!isMounted) return;
+        const ordersData = snapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        })) as Order[];
+        setOrders(ordersData);
+        if (selectedOrder?.id === orderId) {
+          setSelectedOrder(null);
+          setIsModalOpen(false);
+        }
+      } finally {
+        if (isMounted) {
+          setIsLoading(false);
+        }
       }
     } catch (error) {
-      console.error("Error updating order status:", error);
+      if (isMounted) {
+        console.error("Error updating order status:", error);
+      }
     }
+    return () => {
+      isMounted = false;
+    };
   };
 
   const getStatusBadge = (status: string) => {
@@ -224,7 +258,7 @@ export default function OrdersTracking() {
             {/* Status Update */}
             <div className="mb-4">
               <label className="block text-sm font-semibold mb-2">
-                ��حديث الحالة
+                تحديث الحالة
               </label>
               <select
                 value={selectedOrder.status}
