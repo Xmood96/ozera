@@ -7,7 +7,7 @@ interface CartDrawerProps {
   onClose: () => void;
   onUpdateQuantity: (productId: string, quantity: number) => void;
   onRemoveItem: (productId: string) => void;
-  onCheckout: () => void;
+  onCheckout: (phone: string, deliveryAddress: string) => void;
 }
 
 export default function CartDrawer({
@@ -27,7 +27,7 @@ export default function CartDrawer({
 
   const handleCheckout = () => {
     if (phone.trim() && deliveryAddress.trim()) {
-      onCheckout();
+      onCheckout(phone, deliveryAddress);
       setIsCheckoutMode(false);
       setPhone("");
       setDeliveryAddress("");
@@ -152,7 +152,7 @@ export default function CartDrawer({
                     onClick={() => setIsCheckoutMode(true)}
                     className="btn btn-primary w-full rounded-lg"
                   >
-                    الدفع والتأكيد
+                    ��لدفع والتأكيد
                   </button>
                 </div>
               </>
