@@ -271,13 +271,14 @@ export default function OrdersTracking() {
         <div className="flex items-center justify-center py-12">
           <div className="loading loading-spinner loading-lg text-primary" />
         </div>
-      ) : orders.length === 0 ? (
+      ) : filteredOrders.length === 0 ? (
         <div className="alert alert-info">
-          <span>لا توجد طلبات حالياً</span>
+          <span>{orders.length === 0 ? "لا توجد طلبات حالياً" : "لا توجد طلبات تطابق معايير البحث"}</span>
         </div>
       ) : (
-        <div className="space-y-4">
-          {orders.map((order) => (
+        <>
+          <div className="space-y-4">
+            {paginatedOrders.map((order) => (
             <div
               key={order.id}
               className="bg-base-100 rounded-lg shadow p-6"
@@ -333,7 +334,41 @@ export default function OrdersTracking() {
               </div>
             </div>
           ))}
-        </div>
+          </div>
+
+          {/* Pagination */}
+          {totalPages > 1 && (
+            <div className="pagination-controls flex items-center justify-center gap-2 mt-6">
+              <button
+                onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
+                disabled={currentPage === 1}
+                className="btn btn-sm btn-outline"
+              >
+                السابق
+              </button>
+              <div className="flex gap-1">
+                {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+                  <button
+                    key={page}
+                    onClick={() => setCurrentPage(page)}
+                    className={`btn btn-sm ${
+                      currentPage === page ? "btn-primary" : "btn-outline"
+                    }`}
+                  >
+                    {page}
+                  </button>
+                ))}
+              </div>
+              <button
+                onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 1))}
+                disabled={currentPage === totalPages}
+                className="btn btn-sm btn-outline"
+              >
+                التالي
+              </button>
+            </div>
+          )}
+        </>
       )}
 
       {/* Modal */}
