@@ -107,47 +107,53 @@ export default function CategoriesManagement() {
 
   return (
     <div className="categories-management">
-      <div className="flex items-center justify-between mb-6">
-        <h2 className="text-3xl font-bold text-primary">إدارة الفئات</h2>
+      <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-8 gap-4">
+        <div>
+          <h2 className="text-4xl font-bold text-primary mb-2">📂 إدارة الفئات</h2>
+          <p className="text-base-content opacity-60">إنشاء وتعديل وحذف فئات المنتجات</p>
+        </div>
         <button
           onClick={() => handleOpenModal()}
-          className="btn btn-primary rounded-lg"
+          className="btn btn-primary rounded-lg font-bold shadow-lg hover:shadow-xl transition-shadow"
         >
           ➕ إضافة فئة جديدة
         </button>
       </div>
 
       {isLoading ? (
-        <div className="flex items-center justify-center py-12">
-          <div className="loading loading-spinner loading-lg text-primary" />
+        <div className="flex items-center justify-center py-16">
+          <div className="text-center">
+            <span className="loading loading-spinner loading-lg text-primary" />
+            <p className="mt-4 text-base-content opacity-60">جاري تحميل الفئات...</p>
+          </div>
         </div>
       ) : categories.length === 0 ? (
-        <div className="alert alert-info">
-          <span>لا توجد فئات حالياً. انقر على "إضافة فئة جديدة"</span>
+        <div className="alert alert-info bg-blue-50 border-blue-200 text-blue-900">
+          <span>🎯 لا توجد فئات حالياً. انقر على "إضافة فئة جديدة"</span>
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {categories.map((category) => (
             <div
               key={category.id}
-              className="bg-base-100 rounded-lg shadow p-6 flex items-center justify-between"
+              className="bg-gradient-to-br from-base-100 to-base-200 rounded-2xl shadow-lg hover:shadow-2xl transition-shadow p-6 flex flex-col items-start justify-between border border-base-300"
             >
-              <div>
-                <h3 className="text-lg font-bold text-primary">{category.name}</h3>
-                <p className="text-xs opacity-50 mt-1">ID: {category.id}</p>
+              <div className="w-full mb-4">
+                <h3 className="text-2xl font-bold text-primary">{category.name}</h3>
+                <p className="text-xs opacity-50 mt-2 break-all">ID: {category.id}</p>
               </div>
-              <div className="flex gap-2">
+              <div className="flex gap-2 w-full">
                 <button
                   onClick={() => handleOpenModal(category)}
-                  className="btn btn-sm btn-warning rounded"
+                  className="btn btn-sm btn-warning rounded-lg flex-1 font-semibold"
                 >
-                  ✏️
+                  ✏️ تعديل
                 </button>
                 <button
                   onClick={() => handleDelete(category.id)}
-                  className="btn btn-sm btn-error rounded"
+                  className="btn btn-sm btn-error rounded-lg flex-1 font-semibold"
                 >
-                  🗑️
+                  🗑️ حذف
                 </button>
               </div>
             </div>
