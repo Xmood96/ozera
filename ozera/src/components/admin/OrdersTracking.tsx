@@ -15,8 +15,9 @@ interface Order {
   items: OrderItem[];
   totalAmount: number;
   createdAt: any;
-  status: "pending" | "completed" | "cancelled";
+  status: "pending" | "paid" | "in_delivery" | "completed" | "cancelled";
   customerPhone?: string;
+  deliveryAddress?: string;
 }
 
 export default function OrdersTracking() {
