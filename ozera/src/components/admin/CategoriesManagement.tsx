@@ -61,6 +61,8 @@ export default function CategoriesManagement() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!isMountedRef.current) return;
+
     try {
       if (editingCategory) {
         // Update category
@@ -74,10 +76,15 @@ export default function CategoriesManagement() {
           categoryName: categoryName,
         });
       }
-      await loadCategories();
-      handleCloseModal();
+
+      if (isMountedRef.current) {
+        await loadCategories();
+        handleCloseModal();
+      }
     } catch (error) {
-      console.error("Error saving category:", error);
+      if (isMountedRef.current) {
+        console.error("Error saving category:", error);
+      }
     }
   };
 
