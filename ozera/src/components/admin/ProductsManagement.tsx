@@ -18,23 +18,38 @@ export default function ProductsManagement() {
     categoryId: "",
   });
 
+  const isMountedRef = useRef(true);
+
   useEffect(() => {
+    isMountedRef.current = true;
     loadData();
+
+    return () => {
+      isMountedRef.current = false;
+    };
   }, []);
 
   const loadData = async () => {
+    if (!isMountedRef.current) return;
+
     setIsLoading(true);
     try {
       const [productsData, categoriesData] = await Promise.all([
         getProducts(),
         getCategories(),
       ]);
+
+      if (!isMountedRef.current) return;
+
       setProducts(productsData);
       setCategories(categoriesData);
     } catch (error) {
+      if (!isMountedRef.current) return;
       console.error("Error loading data:", error);
     } finally {
-      setIsLoading(false);
+      if (isMountedRef.current) {
+        setIsLoading(false);
+      }
     }
   };
 
