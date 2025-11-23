@@ -76,6 +76,10 @@ export default function OrdersTracking() {
     switch (status) {
       case "pending":
         return <div className="badge badge-warning">قيد الانتظار</div>;
+      case "paid":
+        return <div className="badge badge-info">تم الدفع</div>;
+      case "in_delivery":
+        return <div className="badge badge-success">قيد التوصيل</div>;
       case "completed":
         return <div className="badge badge-success">مكتمل</div>;
       case "cancelled":
@@ -162,7 +166,7 @@ export default function OrdersTracking() {
                 <div>
                   <p className="text-xs opacity-75">الهاتف</p>
                   <p className="text-lg font-bold">
-                    {order.customerPhone || "لم يتم إدخاله"}
+                    {order.customerPhone || "لم يتم إ��خاله"}
                   </p>
                 </div>
                 <div>
