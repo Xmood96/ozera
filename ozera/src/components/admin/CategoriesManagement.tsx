@@ -90,11 +90,18 @@ export default function CategoriesManagement() {
 
   const handleDelete = async (categoryId: string) => {
     if (!confirm("هل تريد حذف هذه الفئة؟")) return;
+    if (!isMountedRef.current) return;
+
     try {
       await deleteDoc(doc(db, "categories", categoryId));
-      await loadCategories();
+
+      if (isMountedRef.current) {
+        await loadCategories();
+      }
     } catch (error) {
-      console.error("Error deleting category:", error);
+      if (isMountedRef.current) {
+        console.error("Error deleting category:", error);
+      }
     }
   };
 
