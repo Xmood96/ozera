@@ -25,7 +25,16 @@ export default function ProductCard({ product, onAddToCart, cartItems = [] }: Pr
   }, [isExpanded, cartItem]);
 
   const handleAddToCart = () => {
-    onAddToCart(product, quantity);
+    if (isInCart && cartItem) {
+      // If item is already in cart, only add the difference
+      const quantityToAdd = quantity - cartItem.quantity;
+      if (quantityToAdd !== 0) {
+        onAddToCart(product, quantityToAdd);
+      }
+    } else {
+      // If new item, add the full quantity
+      onAddToCart(product, quantity);
+    }
     setQuantity(1);
     setIsExpanded(false);
   };
