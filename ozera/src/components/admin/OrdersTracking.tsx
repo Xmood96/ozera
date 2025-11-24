@@ -245,34 +245,34 @@ export default function OrdersTracking() {
 
       {/* Stats Cards */}
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-8">
-        <div className="stat-card bg-gradient-to-br from-secondary to-primary-focus rounded-lg p-4 text-primary-content text-center">
-          <p className="text-sm opacity-80">إجمالي</p>
-          <p className="text-3xl font-bold">{stats.total}</p>
+        <div className="stat-card bg-slate-100 rounded-lg p-4 text-center border border-slate-200">
+          <p className="text-xs text-slate-600 font-semibold">إجمالي</p>
+          <p className="text-3xl font-bold text-slate-900 mt-1">{stats.total}</p>
         </div>
-        <div className="stat-card bg-gradient-to-br from-warning to-orange-500 rounded-lg p-4 text-white text-center">
-          <p className="text-sm opacity-80">قيد الانتظار</p>
-          <p className="text-3xl font-bold">{stats.pending}</p>
+        <div className="stat-card bg-orange-50 rounded-lg p-4 text-center border border-orange-200">
+          <p className="text-xs text-orange-600 font-semibold">قيد الانتظار</p>
+          <p className="text-3xl font-bold text-orange-600 mt-1">{stats.pending}</p>
         </div>
-        <div className="stat-card bg-gradient-to-br from-info to-blue-500 rounded-lg p-4 text-white text-center">
-          <p className="text-sm opacity-80">تم الدفع</p>
-          <p className="text-3xl font-bold">{stats.paid}</p>
+        <div className="stat-card bg-blue-50 rounded-lg p-4 text-center border border-blue-200">
+          <p className="text-xs text-blue-600 font-semibold">تم الدفع</p>
+          <p className="text-3xl font-bold text-blue-600 mt-1">{stats.paid}</p>
         </div>
-        <div className="stat-card bg-gradient-to-br from-accent to-pink-500 rounded-lg p-4 text-white text-center">
-          <p className="text-sm opacity-80">قيد التوصيل</p>
-          <p className="text-3xl font-bold">{stats.inDelivery}</p>
+        <div className="stat-card bg-purple-50 rounded-lg p-4 text-center border border-purple-200">
+          <p className="text-xs text-purple-600 font-semibold">قيد التوصيل</p>
+          <p className="text-3xl font-bold text-purple-600 mt-1">{stats.inDelivery}</p>
         </div>
-        <div className="stat-card bg-gradient-to-br from-success to-green-500 rounded-lg p-4 text-white text-center">
-          <p className="text-sm opacity-80">مكتمل</p>
-          <p className="text-3xl font-bold">{stats.completed}</p>
+        <div className="stat-card bg-green-50 rounded-lg p-4 text-center border border-green-200">
+          <p className="text-xs text-green-600 font-semibold">مكتمل</p>
+          <p className="text-3xl font-bold text-green-600 mt-1">{stats.completed}</p>
         </div>
-        <div className="stat-card bg-gradient-to-br from-error to-red-600 rounded-lg p-4 text-white text-center">
-          <p className="text-sm opacity-80">ملغى</p>
-          <p className="text-3xl font-bold">{stats.cancelled}</p>
+        <div className="stat-card bg-red-50 rounded-lg p-4 text-center border border-red-200">
+          <p className="text-xs text-red-600 font-semibold">ملغى</p>
+          <p className="text-3xl font-bold text-red-600 mt-1">{stats.cancelled}</p>
         </div>
       </div>
 
       {/* Filters */}
-      <div className="filters-section bg-base-200 rounded-xl p-6 mb-8 shadow-sm">
+      <div className="filters-section bg-white rounded-lg p-6 mb-8 shadow-sm border border-slate-200">
         <h3 className="text-xl font-bold mb-4 flex items-center gap-2">
           🔍 البحث والفلترة
         </h3>
