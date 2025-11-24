@@ -109,15 +109,12 @@ export default function CategoriesManagement() {
     <div className="categories-management">
       <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-8 gap-4">
         <div>
-          <h2 className="text-4xl font-bold text-accent flex gap-2 mb-2">
-            <span className="flex text-primary">📂</span>
-            <span>إدارة الفئات</span>
-          </h2>
-          <p className="text-base-content opacity-60">إنشاء وتعديل وحذف فئات المنتجات</p>
+          <h2 className="text-3xl font-bold text-slate-900 mb-2">📂 إدارة الفئات</h2>
+          <p className="text-slate-600">إنشاء وتعديل وحذف فئات المنتجات</p>
         </div>
         <button
           onClick={() => handleOpenModal()}
-          className="btn btn-accent rounded-lg font-bold shadow-lg hover:shadow-xl transition-shadow"
+          className="btn btn-sm bg-green-600 hover:bg-green-700 text-white border-0 rounded-lg font-semibold"
         >
           ➕ إضافة فئة جديدة
         </button>
@@ -126,12 +123,12 @@ export default function CategoriesManagement() {
       {isLoading ? (
         <div className="flex items-center justify-center py-16">
           <div className="text-center">
-            <span className="loading loading-spinner loading-lg text-primary" />
-            <p className="mt-4 text-base-content opacity-60">جاري تحميل الفئات...</p>
+            <span className="loading loading-spinner loading-lg text-green-600" />
+            <p className="mt-4 text-slate-600">جاري تحمي�� الفئات...</p>
           </div>
         </div>
       ) : categories.length === 0 ? (
-        <div className="alert alert-info bg-blue-50 border-blue-200 text-blue-900">
+        <div className="alert bg-green-50 border border-green-200 text-green-900 rounded-lg">
           <span>🎯 لا توجد فئات حالياً. انقر على "إضافة فئة جديدة"</span>
         </div>
       ) : (
@@ -139,24 +136,23 @@ export default function CategoriesManagement() {
           {categories.map((category) => (
             <div
               key={category.id}
-              className="bg-gradient-to-br from-base-100 to-base-200 rounded-2xl shadow-lg hover:shadow-2xl transition-shadow p-6 flex flex-col items-start justify-between border border-base-300"
+              className="bg-white rounded-lg p-6 shadow-sm border border-slate-200 hover:shadow-md transition-shadow flex flex-col justify-between"
             >
-              <div className="w-full mb-4">
-                <h3 className="text-2xl font-bold text-primary">{category.name}</h3>
-              
+              <div className="mb-4">
+                <h3 className="text-xl font-bold text-slate-900">{category.name}</h3>
               </div>
-              <div className="flex gap-2 w-full">
+              <div className="flex gap-2">
                 <button
                   onClick={() => handleOpenModal(category)}
-                  className="btn btn-sm btn-accent rounded-lg flex-1 font-semibold"
+                  className="flex-1 btn btn-xs bg-green-600 hover:bg-green-700 text-white border-0 rounded"
                 >
                   ✏️ تعديل
                 </button>
                 <button
                   onClick={() => handleDelete(category.id)}
-                  className="btn btn-sm btn-error rounded-lg flex-1 font-semibold"
+                  className="flex-1 btn btn-xs bg-red-600 hover:bg-red-700 text-white border-0 rounded"
                 >
-                  X
+                  🗑️ حذف
                 </button>
               </div>
             </div>
