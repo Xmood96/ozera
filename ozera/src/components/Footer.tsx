@@ -56,7 +56,7 @@ export default function Footer() {
           </div>
 
           {/* Social Links */}
-          <div className="footer-social text-center md:text-left">
+          <div className="footer-social text-left md:text-left">
             <h4 className="text-lg font-bold mb-4">تابعنا</h4>
             <div className="social-links justify-center md:justify-start gap-4">
               <a
