@@ -124,7 +124,7 @@ export default function CategoriesManagement() {
         <div className="flex items-center justify-center py-16">
           <div className="text-center">
             <span className="loading loading-spinner loading-lg text-green-600" />
-            <p className="mt-4 text-slate-600">جاري تحمي�� الفئات...</p>
+            <p className="mt-4 text-slate-600">جاري تحميل الفئات...</p>
           </div>
         </div>
       ) : categories.length === 0 ? (
@@ -183,16 +183,16 @@ export default function CategoriesManagement() {
                 />
               </div>
 
-              <div className="modal-action">
+              <div className="modal-action gap-2">
                 <button
                   type="button"
                   onClick={handleCloseModal}
-                  className="btn btn-outline"
+                  className="btn btn-sm bg-slate-200 hover:bg-slate-300 text-slate-900 border-0 rounded-lg"
                 >
                   إلغاء
                 </button>
-                <button type="submit" className="btn btn-accent">
-                  {editingCategory ? "حفظ التغييرات" : "إضافة"}
+                <button type="submit" className="btn btn-sm bg-green-600 hover:bg-green-700 text-white border-0 rounded-lg">
+                  {editingCategory ? "💾 حفظ التغييرات" : "➕ إضافة"}
                 </button>
               </div>
             </form>
