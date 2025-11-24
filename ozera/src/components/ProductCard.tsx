@@ -4,6 +4,7 @@ import type { Product, CartItem } from "../types";
 interface ProductCardProps {
   product: Product;
   onAddToCart: (product: Product, quantity: number) => void;
+  onRemoveFromCart?: (productId: string) => void;
   cartItems?: CartItem[];
 }
 
