@@ -381,7 +381,7 @@ function StatCard({
   const darkTextColor = isDark ? "text-slate-300" : textColor;
 
   return (
-    <div className={`rounded-lg p-5 border ${isDarkMode ? "border-slate-700" : "border-slate-200"} ${darkBgColor}`}>
+    <div className={`rounded-lg p-5 border ${isDark ? "border-slate-700" : "border-slate-200"} ${darkBgColor}`}>
       <div className="flex items-center justify-between">
         <div>
           <p className={`text-sm font-medium ${isDark ? "text-slate-400" : "text-slate-600"}`}>
