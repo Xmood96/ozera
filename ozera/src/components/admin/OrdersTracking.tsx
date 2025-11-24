@@ -344,7 +344,7 @@ export default function OrdersTracking() {
                 setAddressFilter(e.target.value);
                 handleFilterChange();
               }}
-              placeholder="ابحث بالعنوان"
+              placeholder="ابحث بالعن��ان"
               className="input input-bordered w-full input-sm"
               dir="rtl"
             />
@@ -361,7 +361,7 @@ export default function OrdersTracking() {
               setDateToFilter("");
               setCurrentPage(1);
             }}
-            className="btn btn-sm btn-outline mt-4"
+            className="btn btn-sm bg-slate-200 hover:bg-slate-300 text-slate-900 border-0 mt-4 rounded-lg"
           >
             ✕ إعادة تعيين الفلاتر
           </button>
@@ -372,12 +372,12 @@ export default function OrdersTracking() {
       {isLoading ? (
         <div className="flex items-center justify-center py-16">
           <div className="text-center">
-            <span className="loading loading-spinner loading-lg text-primary" />
-            <p className="mt-4 text-base-content opacity-60">جاري تحميل الطلبات...</p>
+            <span className="loading loading-spinner loading-lg text-purple-600" />
+            <p className="mt-4 text-slate-600">جاري تحميل الطلبات...</p>
           </div>
         </div>
       ) : filteredOrders.length === 0 ? (
-        <div className="alert alert-info bg-blue-50 border-blue-200 text-blue-900">
+        <div className="alert bg-purple-50 border border-purple-200 text-purple-900 rounded-lg">
           <span>
             {orders.length === 0 ? "🎯 لا توجد طلبات حالياً" : "🔍 لا توجد طلبات تطابق معايير البحث"}
           </span>
