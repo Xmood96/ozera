@@ -138,16 +138,13 @@ export default function ProductsManagement() {
   return (
     <div className="products-management">
       <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-8 gap-4">
-        <div className="">
-          <h2 className="text-4xl font-bold text-accent mb-2 flex gap-4">
-            <span className="flex text-primary">📦</span>
-            <span>إدارة المنتجات</span>
-          </h2>
-          <p className="text-base opacity-60">إضافة وتعديل وحذف المنتجات</p>
+        <div>
+          <h2 className="text-3xl font-bold text-slate-900 mb-2">📦 إدارة المنتجات</h2>
+          <p className="text-slate-600">إضافة وتعديل وحذف المنتجات</p>
         </div>
         <button
           onClick={() => handleOpenModal()}
-          className="btn btn-accent rounded-lg font-bold shadow-lg hover:shadow-xl transition-shadow"
+          className="btn btn-sm bg-blue-600 hover:bg-blue-700 text-white border-0 rounded-lg font-semibold shadow-md"
         >
           ➕ إضافة منتج جديد
         </button>
@@ -156,30 +153,30 @@ export default function ProductsManagement() {
       {isLoading ? (
         <div className="flex items-center justify-center py-16">
           <div className="text-center">
-            <span className="loading loading-spinner loading-lg text-accent" />
-            <p className="mt-4 text-base-content opacity-60">جاري تحميل المنتجات...</p>
+            <span className="loading loading-spinner loading-lg text-blue-600" />
+            <p className="mt-4 text-slate-600">جاري تحميل المنتجات...</p>
           </div>
         </div>
       ) : products.length === 0 ? (
-        <div className="alert alert-info bg-blue-50 border-blue-200 text-blue-900">
+        <div className="alert bg-blue-50 border border-blue-200 text-blue-900 rounded-lg">
           <span>🎯 لا توجد منتجات حالياً. انقر على "إضافة منتج جديد"</span>
         </div>
       ) : (
-        <div className="overflow-x-auto bg-base-100 rounded-2xl shadow-lg">
-          <table className="table">
-            <thead className="bg-linear-to-r from-secondary to-primary-focus text-primary">
-              <tr>
-                <th>الصورة</th>
-                <th>الاسم</th>
-                <th>الفئة</th>
-                <th>السعر</th>
-                <th>الوصف</th>
-                <th>الإجراءات</th>
+        <div className="overflow-x-auto bg-white rounded-lg shadow-sm border border-slate-200">
+          <table className="table table-zebra">
+            <thead>
+              <tr className="bg-slate-100 border-b border-slate-200">
+                <th className="text-slate-900">الصورة</th>
+                <th className="text-slate-900">الاسم</th>
+                <th className="text-slate-900">الفئة</th>
+                <th className="text-slate-900">السعر</th>
+                <th className="text-slate-900">الوصف</th>
+                <th className="text-slate-900">الإجراءات</th>
               </tr>
             </thead>
             <tbody>
               {products.map((product) => (
-                <tr key={product.id}>
+                <tr key={product.id} className="border-b border-slate-100 hover:bg-slate-50">
                   <td>
                     <div className="avatar">
                       <div className="w-12 h-12 rounded">
@@ -187,23 +184,23 @@ export default function ProductsManagement() {
                       </div>
                     </div>
                   </td>
-                  <td className="font-semibold">{product.name}</td>
-                  <td>{getCategoryName(product.categoryId)}</td>
-                  <td className="text-primary font-bold">{product.price} ج.م</td>
-                  <td className="max-w-xs truncate">{product.description}</td>
+                  <td className="font-semibold text-slate-900">{product.name}</td>
+                  <td className="text-slate-700">{getCategoryName(product.categoryId)}</td>
+                  <td className="font-bold text-blue-600">{product.price} ج.م</td>
+                  <td className="max-w-xs truncate text-slate-600">{product.description}</td>
                   <td>
                     <div className="flex gap-2">
                       <button
                         onClick={() => handleOpenModal(product)}
-                        className="btn btn-sm btn-accent rounded"
+                        className="btn btn-xs bg-blue-600 hover:bg-blue-700 text-white border-0 rounded"
                       >
-                        ✏️
+                        ✏️ تعديل
                       </button>
                       <button
                         onClick={() => handleDelete(product.id)}
-                        className="btn btn-sm btn-error rounded"
+                        className="btn btn-xs bg-red-600 hover:bg-red-700 text-white border-0 rounded"
                       >
-                        x
+                        🗑️ حذف
                       </button>
                     </div>
                   </td>
