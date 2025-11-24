@@ -165,7 +165,7 @@ export default function HomePage() {
       setTimeout(() => setSuccessMessage(null), 5000);
     } catch (error) {
       console.error("Error saving order:", error);
-      setSuccessMessage("حدث خطأ في حفظ الطلب. يرجى المحاولة مجددًا.");
+      setSuccessMessage("حدث خ��أ في حفظ الطلب. يرجى المحاولة مجددًا.");
       setTimeout(() => setSuccessMessage(null), 5000);
     }
   };
@@ -258,6 +258,7 @@ export default function HomePage() {
                   key={product.id}
                   product={product}
                   onAddToCart={handleAddToCart}
+                  cartItems={cartItems}
                 />
               ))}
             </div>
