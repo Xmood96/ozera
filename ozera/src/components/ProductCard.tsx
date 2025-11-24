@@ -8,7 +8,7 @@ interface ProductCardProps {
   cartItems?: CartItem[];
 }
 
-export default function ProductCard({ product, onAddToCart, cartItems = [] }: ProductCardProps) {
+export default function ProductCard({ product, onAddToCart, onRemoveFromCart, cartItems = [] }: ProductCardProps) {
   const [isExpanded, setIsExpanded] = useState(false);
   const [quantity, setQuantity] = useState(1);
 
