@@ -109,7 +109,10 @@ export default function CategoriesManagement() {
     <div className="categories-management">
       <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-8 gap-4">
         <div>
-          <h2 className="text-4xl font-bold text-accent flex gap-2 mb-2"><h2 className="flex text-primary ">📂</h2> إدارة الفئات</h2>
+          <h2 className="text-4xl font-bold text-accent flex gap-2 mb-2">
+            <span className="flex text-primary">📂</span>
+            <span>إدارة الفئات</span>
+          </h2>
           <p className="text-base-content opacity-60">إنشاء وتعديل وحذف فئات المنتجات</p>
         </div>
         <button
@@ -179,7 +182,7 @@ export default function CategoriesManagement() {
                   value={categoryName}
                   onChange={(e) => setCategoryName(e.target.value)}
                   className="input input-bordered"
-                  placeholder="مثال: كريمات الترطيب"
+                  placeholder="مثال: ك��يمات الترطيب"
                   required
                 />
               </div>
