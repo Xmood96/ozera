@@ -239,15 +239,12 @@ export default function OrdersTracking() {
   return (
     <div className="orders-tracking">
       <div className="mb-8">
-        <h2 className="text-4xl flex gap-4 font-bold text-accent mb-2">
-          <span className="flex text-primary">📋</span>
-          <span>تتبع الطلبات</span>
-        </h2>
-        <p className="text-base-content opacity-60">إدارة شاملة لجميع طلبات العملاء</p>
+        <h2 className="text-3xl font-bold text-slate-900 mb-2">📋 تتبع الطلبات</h2>
+        <p className="text-slate-600">إدارة شاملة لجميع طلبات العملاء</p>
       </div>
 
       {/* Stats Cards */}
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 mb-8">
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-8">
         <div className="stat-card bg-gradient-to-br from-secondary to-primary-focus rounded-lg p-4 text-primary-content text-center">
           <p className="text-sm opacity-80">إجمالي</p>
           <p className="text-3xl font-bold">{stats.total}</p>
