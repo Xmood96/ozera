@@ -136,7 +136,7 @@ export default function CategoriesManagement() {
           {categories.map((category) => (
             <div
               key={category.id}
-              className="bg-base rounded-lg p-6 shadow-sm border border-slate-200 hover:shadow-md transition-shadow flex flex-col justify-between"
+              className="bg-base-300 rounded-lg p-6 shadow-sm border border-slate-200 hover:shadow-md transition-shadow flex flex-col justify-between"
             >
               <div className="mb-4">
                 <h3 className="text-xl font-bold text-slate-900">{category.name}</h3>
