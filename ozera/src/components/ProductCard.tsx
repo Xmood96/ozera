@@ -141,7 +141,7 @@ export default function ProductCard({ product, onAddToCart, onRemoveFromCart, ca
             </div>
           )}
 
-          <div className="product-footer flex items-center gap-2 mt-4 pt-4 border-t border-base-200">
+          <div className="product-footer flex justify-between items-center gap-2 mt-4 pt-4 border-t border-base-200">
             <span className="product-price text-2xl font-bold text-primary">
               {product.price} ج.م
             </span>
