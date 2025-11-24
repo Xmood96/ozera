@@ -273,9 +273,7 @@ export default function OrdersTracking() {
 
       {/* Filters */}
       <div className="filters-section bg-white rounded-lg p-6 mb-8 shadow-sm border border-slate-200">
-        <h3 className="text-xl font-bold mb-4 flex items-center gap-2">
-          🔍 البحث والفلترة
-        </h3>
+        <h3 className="text-lg font-bold mb-4 text-slate-900">🔍 البحث والفلترة</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
           <div className="filter-group">
             <label className="label-text block text-sm font-semibold mb-2">الحالة</label>
