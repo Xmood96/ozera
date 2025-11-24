@@ -300,16 +300,16 @@ export default function ProductsManagement() {
                 </select>
               </div>
 
-              <div className="modal-action">
+              <div className="modal-action gap-2">
                 <button
                   type="button"
                   onClick={handleCloseModal}
-                  className="btn btn-outline"
+                  className="btn btn-sm bg-slate-200 hover:bg-slate-300 text-slate-900 border-0 rounded-lg"
                 >
                   إلغاء
                 </button>
-                <button type="submit" className="btn btn-accent">
-                  {editingProduct ? "حفظ التغييرات" : "إضافة"}
+                <button type="submit" className="btn btn-sm bg-blue-600 hover:bg-blue-700 text-white border-0 rounded-lg">
+                  {editingProduct ? "💾 حفظ التغييرات" : "➕ إضافة"}
                 </button>
               </div>
             </form>
