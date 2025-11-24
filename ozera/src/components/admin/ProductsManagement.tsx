@@ -139,7 +139,10 @@ export default function ProductsManagement() {
     <div className="products-management">
       <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-8 gap-4">
         <div className="">
-          <h2 className="text-4xl font-bold text-accent mb-2 flex gap-4"><h2 className="flex text-primary ">📦</h2> إدارة المنتجات</h2>
+          <h2 className="text-4xl font-bold text-accent mb-2 flex gap-4">
+            <span className="flex text-primary">📦</span>
+            <span>إدارة المنتجات</span>
+          </h2>
           <p className="text-base opacity-60">إضافة وتعديل وحذف المنتجات</p>
         </div>
         <button
