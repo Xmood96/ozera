@@ -140,40 +140,36 @@ export default function ProductCard({ product, onAddToCart, cartItems = [] }: Pr
             </div>
           )}
 
-          <div className="product-footer flex items-center justify-between mt-4 pt-4 border-t border-base-200">
+          <div className="product-footer flex items-center gap-2 mt-4 pt-4 border-t border-base-200">
             <span className="product-price text-2xl font-bold text-primary">
               {product.price} ج.م
             </span>
             {isExpanded ? (
-              isInCart ? (
-                <div className="in-cart-indicator flex items-center gap-2 text-success">
-                  <svg
-                    className="w-6 h-6"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
+              <div className="expanded-actions flex items-center gap-2">
+                {isInCart && (
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setIsExpanded(false);
+                      // Remove from cart - we'll need to add this handler
+                    }}
+                    className="btn btn-ghost btn-sm text-error hover:bg-error/10"
+                    title="إزالة من السلة"
                   >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M5 13l4 4L19 7"
-                    />
-                  </svg>
-                  <span className="font-semibold">تمت الإضافة</span>
-                </div>
-              ) : (
+                    🗑️
+                  </button>
+                )}
                 <button
                   onClick={(e) => {
                     e.stopPropagation();
                     handleAddToCart();
                   }}
-                  className="btn-add-to-cart btn btn-primary rounded-lg transition-all duration-300 hover:scale-105"
-                  aria-label={`إضافة ${product.name} إلى السلة`}
+                  className="btn-add-to-cart btn btn-primary btn-sm rounded-lg transition-all duration-300 hover:scale-105"
+                  aria-label={isInCart ? `تحديث ${product.name}` : `إضافة ${product.name} إلى السلة`}
                 >
-                  إضافة × {quantity}
+                  {isInCart ? "تحديث" : "إضافة"} × {quantity}
                 </button>
-              )
+              </div>
             ) : isInCart ? (
               <div className="in-cart-badge flex items-center gap-2 bg-success/10 text-success px-3 py-1 rounded-lg font-semibold text-sm">
                 <span>✓</span>
