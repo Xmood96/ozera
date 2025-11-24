@@ -151,8 +151,9 @@ export default function ProductCard({ product, onAddToCart, onRemoveFromCart, ca
                   <button
                     onClick={(e) => {
                       e.stopPropagation();
+                      onRemoveFromCart?.(product.id);
                       setIsExpanded(false);
-                      // Remove from cart - we'll need to add this handler
+                      setQuantity(1);
                     }}
                     className="btn btn-ghost btn-sm text-error hover:bg-error/10"
                     title="إزالة من السلة"
