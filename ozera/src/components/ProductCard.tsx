@@ -136,16 +136,40 @@ export default function ProductCard({ product, onAddToCart, cartItems = [] }: Pr
               {product.price} ج.م
             </span>
             {isExpanded ? (
-              <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  handleAddToCart();
-                }}
-                className="btn-add-to-cart btn btn-primary rounded-lg transition-all duration-300 hover:scale-105"
-                aria-label={`إضافة ${product.name} إلى السلة`}
-              >
-                إضافة × {quantity}
-              </button>
+              isInCart ? (
+                <div className="in-cart-indicator flex items-center gap-2 text-success">
+                  <svg
+                    className="w-6 h-6"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M5 13l4 4L19 7"
+                    />
+                  </svg>
+                  <span className="font-semibold">تمت الإضافة</span>
+                </div>
+              ) : (
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleAddToCart();
+                  }}
+                  className="btn-add-to-cart btn btn-primary rounded-lg transition-all duration-300 hover:scale-105"
+                  aria-label={`إضافة ${product.name} إلى السلة`}
+                >
+                  إضافة × {quantity}
+                </button>
+              )
+            ) : isInCart ? (
+              <div className="in-cart-badge flex items-center gap-2 bg-success/10 text-success px-3 py-1 rounded-lg font-semibold text-sm">
+                <span>✓</span>
+                <span>{cartItem.quantity}</span>
+              </div>
             ) : (
               <button
                 onClick={(e) => {
