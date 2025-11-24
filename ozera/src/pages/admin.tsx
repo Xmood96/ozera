@@ -150,7 +150,7 @@ export default function AdminPage() {
                 : "bg-slate-100 text-slate-700 hover:bg-slate-200"
             }`}
           >
-            {isDarkMode ? "☀️ فاتح" : "🌙 مظلم"}
+            {isDarkMode ? "☀️ فات��" : "🌙 مظلم"}
           </button>
           <button
             onClick={handleLogout}
@@ -179,7 +179,7 @@ export default function AdminPage() {
             </button>
             <ul tabIndex={0} className={`dropdown-content z-1 menu p-2 shadow ${isDarkMode ? "bg-slate-800" : "bg-white"} rounded-box w-52`}>
               <li>
-                <a onClick={() => setActiveTab("dashboard")}>📊 لوحة التحكم</a>
+                <a onClick={() => setActiveTab("dashboard")}>📊 ل��حة التحكم</a>
               </li>
               <li>
                 <a onClick={() => setActiveTab("products")}>📦 المنتجات</a>
@@ -431,5 +431,3 @@ function QuickActionButton({
     </button>
   );
 }
-
-type AdminTab = "dashboard" | "products" | "categories" | "orders";
