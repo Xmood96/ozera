@@ -25,47 +25,47 @@ export default function AdminPage() {
   };
 
   return (
-    <div className="admin-dashboard min-h-screen bg-gradient-to-br from-base-100 to-base-200 flex" dir="rtl">
+    <div className="admin-dashboard min-h-screen bg-linear-to-br from-base-100 to-base-300 flex" dir="rtl">
       {/* Sidebar */}
-      <aside className="admin-sidebar w-64 bg-gradient-to-b from-primary to-primary-focus text-primary-content p-6 hidden lg:flex lg:flex-col sticky top-0 h-screen overflow-y-auto shadow-2xl">
+      <aside className="admin-sidebar t w-64 bg-gradient-to-b from-secondary to-primary-focus text-primary-content p-6 hidden lg:flex lg:flex-col sticky top-0 h-screen overflow-y-auto shadow-2xl">
         <div className="sidebar-header mb-10">
-          <div className="bg-primary-content bg-opacity-20 rounded-lg p-4 mb-4 text-center">
+          <div className="bg-primary bg-opacity-20 rounded-lg p-4 mb-4 text-center">
             <h1 className="text-3xl font-bold">OZERA</h1>
           </div>
-          <p className="text-sm opacity-90 text-center font-semibold">🎛️ لوحة التحكم الرئيسية</p>
+          <p className="text-sm opacity-90 text-center font-semibold"> لوحة التحكم الرئيسية</p>
         </div>
 
         {/* Navigation */}
         <nav className="sidebar-nav flex-1 space-y-2">
           <button
             onClick={() => setActiveTab("products")}
-            className={`w-full text-right px-4 py-4 rounded-xl transition-all duration-300 font-semibold ${
+            className={`w-full flex gap-2 text-right px-4 py-4 rounded-xl transition-all duration-300 font-semibold ${
               activeTab === "products"
-                ? "bg-primary-content bg-opacity-20 shadow-lg border-l-4 border-primary-content"
-                : "hover:bg-primary-content hover:bg-opacity-10"
+                ? "bg-accent bg-opacity-20 shadow-lg border-s-4 border-primary"
+                : "hover:bg-primary-content hover:text-accent hover:bg-opacity-10"
             }`}
           >
-            📦 إدارة المنتجات
+            <h2 className="flex text-primary/70 ">📦</h2> إدارة المنتجات
           </button>
           <button
             onClick={() => setActiveTab("categories")}
-            className={`w-full text-right px-4 py-4 rounded-xl transition-all duration-300 font-semibold ${
+            className={`w-full flex gap-2 text-right px-4 py-4 rounded-xl transition-all duration-300 font-semibold ${
               activeTab === "categories"
-                ? "bg-primary-content bg-opacity-20 shadow-lg border-l-4 border-primary-content"
-                : "hover:bg-primary-content hover:bg-opacity-10"
+                ? "bg-accent bg-opacity-20 shadow-lg border-s-4 border-primary-content"
+                : "hover:bg-primary-content hover:text-accent hover:bg-opacity-10"
             }`}
           >
-            📂 إدارة الفئات
+           <h2 className="flex text-primary/70 ">📂</h2>  إدارة الفئات
           </button>
           <button
             onClick={() => setActiveTab("orders")}
-            className={`w-full text-right px-4 py-4 rounded-xl transition-all duration-300 font-semibold ${
+            className={`w-full flex gap-2 text-right px-4 py-4 rounded-xl transition-all duration-300 font-semibold ${
               activeTab === "orders"
-                ? "bg-primary-content bg-opacity-20 shadow-lg border-l-4 border-primary-content"
-                : "hover:bg-primary-content hover:bg-opacity-10"
+                ? "bg-accent bg-opacity-20 shadow-lg border-s-4 border-primary-content"
+                : "hover:bg-primary-content hover:text-accent hover:bg-opacity-10"
             }`}
           >
-            📋 تتبع الطلبات
+            <h2 className="flex text-primary/70 ">📋</h2> تتبع الطلبات
           </button>
         </nav>
 
@@ -74,7 +74,7 @@ export default function AdminPage() {
           <button
             onClick={handleLogout}
             disabled={isLoggingOut}
-            className="btn btn-outline btn-sm w-full text-primary-content border-primary-content hover:bg-primary-content hover:text-primary rounded-lg font-semibold transition-all"
+            className="btn btn-outline btn-sm w-full text-error border-error hover:bg-primary-content hover:text-primary rounded-lg font-semibold transition-all"
           >
             {isLoggingOut ? (
               <>
@@ -91,13 +91,13 @@ export default function AdminPage() {
       {/* Main Content */}
       <main className="admin-main flex-1 overflow-auto">
         {/* Mobile Header */}
-        <div className="lg:hidden sticky top-0 bg-gradient-to-r from-primary to-primary-focus text-primary-content p-4 flex items-center justify-between z-10 shadow-lg">
+        <div className="lg:hidden sticky top-0 bg-linear-to-r from-secondary to-primary-focus text-primary-content p-4 flex items-center justify-between z-10 shadow-lg">
           <h1 className="text-lg font-bold">🎛️ OZERA</h1>
           <div className="dropdown dropdown-end">
             <button tabIndex={0} className="btn btn-sm btn-ghost text-primary-content">
               ☰
             </button>
-            <ul tabIndex={0} className="dropdown-content z-[1] menu p-3 shadow bg-base-100 rounded-box w-56">
+            <ul tabIndex={0} className="dropdown-content z-1 menu p-3 shadow bg-base-100 text-secondary rounded-box w-56">
               <li>
                 <a onClick={() => setActiveTab("products")} className="font-semibold">📦 إدارة المنتجات</a>
               </li>

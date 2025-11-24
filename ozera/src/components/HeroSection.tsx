@@ -10,7 +10,7 @@ export default function HeroSection({
   onWhatsAppClick,
 }: HeroSectionProps) {
   return (
-    <section className="hero-section relative min-h-screen bg-gradient-to-b from-accent to-base-100 overflow-hidden">
+    <section className="hero-section relative min-h-screen bg-linear-to-b from-accent to-base-100 overflow-hidden">
       {/* Decorative elements */}
       <div className="absolute top-10 right-10 w-32 h-32 bg-primary opacity-5 rounded-full blur-3xl" />
       <div className="absolute bottom-10 left-10 w-40 h-40 bg-secondary opacity-5 rounded-full blur-3xl" />
@@ -23,7 +23,7 @@ export default function HeroSection({
               size="100%"
               color="#6B7E4E"
               loopDuration={5}
-              strokeWidth={10}
+              strokeWidth={22}
             />
           </div>
         </div>

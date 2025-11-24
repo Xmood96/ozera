@@ -138,13 +138,13 @@ export default function ProductsManagement() {
   return (
     <div className="products-management">
       <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-8 gap-4">
-        <div>
-          <h2 className="text-4xl font-bold text-primary mb-2">📦 إدارة المنتجات</h2>
-          <p className="text-base-content opacity-60">إضافة وتعديل وحذف المنتجات</p>
+        <div className="">
+          <h2 className="text-4xl font-bold text-accent mb-2 flex gap-4"><h2 className="flex text-primary ">📦</h2> إدارة المنتجات</h2>
+          <p className="text-base opacity-60">إضافة وتعديل وحذف المنتجات</p>
         </div>
         <button
           onClick={() => handleOpenModal()}
-          className="btn btn-primary rounded-lg font-bold shadow-lg hover:shadow-xl transition-shadow"
+          className="btn btn-accent rounded-lg font-bold shadow-lg hover:shadow-xl transition-shadow"
         >
           ➕ إضافة منتج جديد
         </button>
@@ -153,7 +153,7 @@ export default function ProductsManagement() {
       {isLoading ? (
         <div className="flex items-center justify-center py-16">
           <div className="text-center">
-            <span className="loading loading-spinner loading-lg text-primary" />
+            <span className="loading loading-spinner loading-lg text-accent" />
             <p className="mt-4 text-base-content opacity-60">جاري تحميل المنتجات...</p>
           </div>
         </div>
@@ -164,7 +164,7 @@ export default function ProductsManagement() {
       ) : (
         <div className="overflow-x-auto bg-base-100 rounded-2xl shadow-lg">
           <table className="table">
-            <thead className="bg-gradient-to-r from-primary to-primary-focus text-primary-content">
+            <thead className="bg-linear-to-r from-secondary to-primary-focus text-primary">
               <tr>
                 <th>الصورة</th>
                 <th>الاسم</th>
@@ -192,7 +192,7 @@ export default function ProductsManagement() {
                     <div className="flex gap-2">
                       <button
                         onClick={() => handleOpenModal(product)}
-                        className="btn btn-sm btn-warning rounded"
+                        className="btn btn-sm btn-accent rounded"
                       >
                         ✏️
                       </button>
@@ -200,7 +200,7 @@ export default function ProductsManagement() {
                         onClick={() => handleDelete(product.id)}
                         className="btn btn-sm btn-error rounded"
                       >
-                        🗑️
+                        x
                       </button>
                     </div>
                   </td>
@@ -220,7 +220,7 @@ export default function ProductsManagement() {
             </h3>
 
             <form onSubmit={handleSubmit} className="space-y-4">
-              <div className="form-control">
+              <div className="form-control flex gap-4 ">
                 <label className="label">
                   <span className="label-text">اسم المنتج</span>
                 </label>
@@ -235,9 +235,9 @@ export default function ProductsManagement() {
                 />
               </div>
 
-              <div className="form-control">
+              <div className="form-control flex gap-7 ">
                 <label className="label">
-                  <span className="label-text">ا��وصف</span>
+                  <span className="label-text">الوصف</span>
                 </label>
                 <textarea
                   value={formData.description}
@@ -249,7 +249,7 @@ export default function ProductsManagement() {
                 />
               </div>
 
-              <div className="form-control">
+              <div className="form-control flex gap-10 ">
                 <label className="label">
                   <span className="label-text">السعر</span>
                 </label>
@@ -264,7 +264,7 @@ export default function ProductsManagement() {
                 />
               </div>
 
-              <div className="form-control">
+              <div className="form-control flex gap-4 ">
                 <label className="label">
                   <span className="label-text">رابط الصورة</span>
                 </label>
@@ -279,7 +279,7 @@ export default function ProductsManagement() {
                 />
               </div>
 
-              <div className="form-control">
+              <div className="form-control flex gap-12">
                 <label className="label">
                   <span className="label-text">الفئة</span>
                 </label>
@@ -308,8 +308,8 @@ export default function ProductsManagement() {
                 >
                   إلغاء
                 </button>
-                <button type="submit" className="btn btn-primary">
-                  {editingProduct ? "حف�� التغييرات" : "إضافة"}
+                <button type="submit" className="btn btn-accent">
+                  {editingProduct ? "حفظ التغييرات" : "إضافة"}
                 </button>
               </div>
             </form>

@@ -109,12 +109,12 @@ export default function CategoriesManagement() {
     <div className="categories-management">
       <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-8 gap-4">
         <div>
-          <h2 className="text-4xl font-bold text-primary mb-2">📂 إدارة الفئات</h2>
+          <h2 className="text-4xl font-bold text-accent flex gap-2 mb-2"><h2 className="flex text-primary ">📂</h2> إدارة الفئات</h2>
           <p className="text-base-content opacity-60">إنشاء وتعديل وحذف فئات المنتجات</p>
         </div>
         <button
           onClick={() => handleOpenModal()}
-          className="btn btn-primary rounded-lg font-bold shadow-lg hover:shadow-xl transition-shadow"
+          className="btn btn-accent rounded-lg font-bold shadow-lg hover:shadow-xl transition-shadow"
         >
           ➕ إضافة فئة جديدة
         </button>
@@ -140,12 +140,12 @@ export default function CategoriesManagement() {
             >
               <div className="w-full mb-4">
                 <h3 className="text-2xl font-bold text-primary">{category.name}</h3>
-                <p className="text-xs opacity-50 mt-2 break-all">ID: {category.id}</p>
+              
               </div>
               <div className="flex gap-2 w-full">
                 <button
                   onClick={() => handleOpenModal(category)}
-                  className="btn btn-sm btn-warning rounded-lg flex-1 font-semibold"
+                  className="btn btn-sm btn-accent rounded-lg flex-1 font-semibold"
                 >
                   ✏️ تعديل
                 </button>
@@ -153,7 +153,7 @@ export default function CategoriesManagement() {
                   onClick={() => handleDelete(category.id)}
                   className="btn btn-sm btn-error rounded-lg flex-1 font-semibold"
                 >
-                  🗑️ حذف
+                  X
                 </button>
               </div>
             </div>
@@ -170,7 +170,7 @@ export default function CategoriesManagement() {
             </h3>
 
             <form onSubmit={handleSubmit} className="space-y-4">
-              <div className="form-control">
+              <div className="form-control flex gap-4">
                 <label className="label">
                   <span className="label-text">اسم الفئة</span>
                 </label>
@@ -179,7 +179,7 @@ export default function CategoriesManagement() {
                   value={categoryName}
                   onChange={(e) => setCategoryName(e.target.value)}
                   className="input input-bordered"
-                  placeholder="مثال: كريمات التر��يب"
+                  placeholder="مثال: كريمات الترطيب"
                   required
                 />
               </div>
@@ -192,7 +192,7 @@ export default function CategoriesManagement() {
                 >
                   إلغاء
                 </button>
-                <button type="submit" className="btn btn-primary">
+                <button type="submit" className="btn btn-accent">
                   {editingCategory ? "حفظ التغييرات" : "إضافة"}
                 </button>
               </div>

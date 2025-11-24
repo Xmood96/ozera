@@ -1,4 +1,4 @@
-import JewelLogo from "../assets/logoanim";
+
 import logo from "../assets/ChatGPT Image Nov 21, 2025, 07_08_56 PM.png";
 
 const PHONE_NUMBER = "201271772724";
