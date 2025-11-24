@@ -1,14 +1,28 @@
-import { useState } from "react";
-import type { Product } from "../types";
+import { useState, useEffect } from "react";
+import type { Product, CartItem } from "../types";
 
 interface ProductCardProps {
   product: Product;
   onAddToCart: (product: Product, quantity: number) => void;
+  cartItems?: CartItem[];
 }
 
-export default function ProductCard({ product, onAddToCart }: ProductCardProps) {
+export default function ProductCard({ product, onAddToCart, cartItems = [] }: ProductCardProps) {
   const [isExpanded, setIsExpanded] = useState(false);
   const [quantity, setQuantity] = useState(1);
+
+  // Get the current cart item if it exists
+  const cartItem = cartItems.find((item) => item.productId === product.id);
+  const isInCart = !!cartItem;
+
+  // Update quantity when card is expanded and item is in cart
+  useEffect(() => {
+    if (isExpanded && cartItem) {
+      setQuantity(cartItem.quantity);
+    } else if (isExpanded && !cartItem) {
+      setQuantity(1);
+    }
+  }, [isExpanded, cartItem]);
 
   const handleAddToCart = () => {
     onAddToCart(product, quantity);
