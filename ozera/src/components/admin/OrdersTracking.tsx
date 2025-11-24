@@ -239,7 +239,10 @@ export default function OrdersTracking() {
   return (
     <div className="orders-tracking">
       <div className="mb-8">
-        <h2 className="text-4xl flex gap-4 font-bold text-accent mb-2"><h2 className="flex text-primary ">📋</h2> تتبع الطلبات</h2>
+        <h2 className="text-4xl flex gap-4 font-bold text-accent mb-2">
+          <span className="flex text-primary">📋</span>
+          <span>تتبع الطلبات</span>
+        </h2>
         <p className="text-base-content opacity-60">إدارة شاملة لجميع طلبات العملاء</p>
       </div>
 
