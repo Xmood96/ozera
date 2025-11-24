@@ -76,14 +76,15 @@ export default function HomePage() {
   };
 
   // Handle add to cart
-  const handleAddToCart = (product: Product) => {
+  const handleAddToCart = (product: Product, quantity: number = 1) => {
     setCartItems((prevItems) => {
       const existingItem = prevItems.find((item) => item.productId === product.id);
 
       if (existingItem) {
+        const newQuantity = existingItem.quantity + quantity;
         return prevItems.map((item) =>
           item.productId === product.id
-            ? { ...item, quantity: item.quantity + 1, total: item.price * (item.quantity + 1) }
+            ? { ...item, quantity: newQuantity, total: item.price * newQuantity }
             : item
         );
       }
@@ -94,15 +95,16 @@ export default function HomePage() {
           productId: product.id,
           name: product.name,
           price: product.price,
-          quantity: 1,
+          quantity,
           imageUrl: product.imageUrl,
-          total: product.price,
+          total: product.price * quantity,
         },
       ];
     });
 
     // Show brief feedback
-    setSuccessMessage(`تمت إضافة ${product.name} إلى السلة`);
+    const quantityText = quantity > 1 ? `${quantity} عناصر` : "عنصر واحد";
+    setSuccessMessage(`تمت إضافة ${quantityText} من ${product.name} إلى السلة`);
     setTimeout(() => setSuccessMessage(null), 2000);
   };
 
