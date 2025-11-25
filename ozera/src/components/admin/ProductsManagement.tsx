@@ -281,7 +281,7 @@ export default function ProductsManagement() {
                 onClick={() => handleOpenModal(product)}
                 className="btn btn-xs btn-ghost   text-slate-900 border border-secondary rounded"
               >
-                ��️ تعديل
+                 تعديل
               </button>
 
               <button
