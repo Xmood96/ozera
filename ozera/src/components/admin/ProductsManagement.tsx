@@ -137,6 +137,12 @@ export default function ProductsManagement() {
         await loadData();
       }
     } catch (error) {
+      // Handle AbortError gracefully
+      if (error instanceof Error && error.name === "AbortError") {
+        console.debug("Product delete was aborted (expected on unmount)");
+        return;
+      }
+
       if (isMountedRef.current) {
         console.error("Error deleting product:", error);
       }
@@ -293,7 +299,7 @@ export default function ProductsManagement() {
 
               <div className="form-control flex gap-12">
                 <label className="label">
-                  <span className="label-text">الفئ��</span>
+                  <span className="label-text">الفئة</span>
                 </label>
                 <select
                   value={formData.categoryId}
