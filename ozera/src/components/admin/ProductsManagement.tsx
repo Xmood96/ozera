@@ -390,9 +390,18 @@ export default function ProductsManagement() {
                 <input
                   type="number"
                   value={formData.price}
-                  onChange={(e) =>
-                    setFormData({ ...formData, price: Number(e.target.value) })
-                  }
+                  onChange={(e) => {
+                    const currentPrice = Number(e.target.value);
+                    const basePrice = formData.basePrice || 0;
+
+                    // Calculate discount percentage if basePrice is set
+                    let discount = 0;
+                    if (basePrice > 0 && currentPrice < basePrice) {
+                      discount = Math.round(((basePrice - currentPrice) / basePrice) * 100);
+                    }
+
+                    setFormData({ ...formData, price: currentPrice, discount });
+                  }}
                   className="input input-bordered"
                   placeholder="السعر بعد الخصم"
                 />
