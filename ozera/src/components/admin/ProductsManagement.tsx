@@ -4,6 +4,8 @@ import { collection, deleteDoc, doc, updateDoc, addDoc, Timestamp } from "fireba
 import { db } from "../../firebase";
 import type { Product, Category } from "../../types";
 
+
+
 export default function ProductsManagement() {
   const [products, setProducts] = useState<Product[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
@@ -162,7 +164,7 @@ export default function ProductsManagement() {
         </div>
         <button
           onClick={() => handleOpenModal()}
-          className="btn btn-sm bg-blue-600 hover:bg-blue-700 text-white border-0 rounded-lg font-semibold shadow-md"
+          className="btn btn-sm  bg-green-600 hover:bg-green-700 text-white border-0 rounded-lg font-semibold shadow-md"
         >
           ➕ إضافة منتج جديد
         </button>
@@ -180,53 +182,76 @@ export default function ProductsManagement() {
           <span>🎯 لا توجد منتجات حالياً. انقر على "إضافة منتج جديد"</span>
         </div>
       ) : (
-        <div className="overflow-x-auto bg-white rounded-lg shadow-sm border border-slate-200">
-          <table className="table table-zebra">
-            <thead>
-              <tr className="bg-slate-100 border-b border-slate-200">
-                <th className="text-slate-900">الصورة</th>
-                <th className="text-slate-900">الاسم</th>
-                <th className="text-slate-900">الفئة</th>
-                <th className="text-slate-900">السعر</th>
-                <th className="text-slate-900">الوصف</th>
-                <th className="text-slate-900">الإجراءات</th>
-              </tr>
-            </thead>
-            <tbody>
-              {products.map((product) => (
-                <tr key={product.id} className="border-b border-slate-100 hover:bg-slate-50">
-                  <td>
-                    <div className="avatar">
-                      <div className="w-12 h-12 rounded">
-                        <img src={product.imageUrl} alt={product.name} />
-                      </div>
-                    </div>
-                  </td>
-                  <td className="font-semibold text-slate-900">{product.name}</td>
-                  <td className="text-slate-700">{getCategoryName(product.categoryId)}</td>
-                  <td className="font-bold text-blue-600">{product.price} ج.م</td>
-                  <td className="max-w-xs truncate text-slate-600">{product.description}</td>
-                  <td>
-                    <div className="flex gap-2">
-                      <button
-                        onClick={() => handleOpenModal(product)}
-                        className="btn btn-xs bg-blue-600 hover:bg-blue-700 text-white border-0 rounded"
-                      >
-                        ✏️ تعديل
-                      </button>
-                      <button
-                        onClick={() => handleDelete(product.id)}
-                        className="btn btn-xs bg-red-600 hover:bg-red-700 text-white border-0 rounded"
-                      >
-                        🗑️ حذف
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+       <div className="overflow-x-auto rounded-lg border border-slate-200 shadow-sm">
+  <table className="table table-zebra w-full">
+    <thead>
+      <tr className="bg-slate-100 border-b border-slate-200 text-slate-900">
+        <th>الصورة</th>
+        <th>الاسم</th>
+        <th className="hidden sm:table-cell">الفئة</th>
+        <th className="hidden sm:table-cell">السعر</th>
+        <th className="hidden lg:table-cell">الوصف</th>
+        <th>الإجراءات</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      {products.map((product) => (
+        <tr
+          key={product.id}
+          className="border-b border-slate-100 hover:bg-slate-50 transition"
+        >
+          {/* الصورة */}
+          <td>
+            <div className="avatar">
+              <div className="w-12 h-12 rounded">
+                <img src={product.imageUrl} alt={product.name} />
+              </div>
+            </div>
+          </td>
+
+          {/* الاسم */}
+          <td className="font-semibold text-slate-900">{product.name}</td>
+
+          {/* الفئة - تظهر فقط من sm وفوق */}
+          <td className="text-slate-700 hidden sm:table-cell">
+            {getCategoryName(product.categoryId)}
+          </td>
+
+          {/* السعر - يظهر من sm وفوق */}
+          <td className="font-bold text-blue-600 hidden sm:table-cell">
+            {product.price} ج.م
+          </td>
+
+          {/* الوصف - يظهر فقط على الشاشات الكبيرة */}
+          <td className="max-w-xs truncate text-slate-600 hidden lg:table-cell">
+            {product.description}
+          </td>
+
+          {/* الإجراءات */}
+          <td>
+            <div className="flex gap-2">
+              <button
+                onClick={() => handleOpenModal(product)}
+                className="btn btn-xs btn-ghost   text-slate-900 border border-secondary rounded"
+              >
+                ✏️ تعديل
+              </button>
+
+              <button
+                onClick={() => handleDelete(product.id)}
+                className="btn btn-xs bg-red-600 hover:bg-red-700 text-white border-0 rounded"
+              >
+                🗑️ حذف
+              </button>
+            </div>
+          </td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+</div>
+
       )}
 
       {/* Modal */}

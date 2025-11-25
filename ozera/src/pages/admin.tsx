@@ -23,6 +23,7 @@ export default function AdminPage() {
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState<AdminTab>("dashboard");
   const [isDarkMode, setIsDarkMode] = useState(false);
+  console.log(setIsDarkMode)
   const [isLoggingOut, setIsLoggingOut] = useState(false);
   const [stats, setStats] = useState<DashboardStats>({
     totalProducts: 0,
@@ -105,9 +106,9 @@ export default function AdminPage() {
     }
   };
 
-  const toggleDarkMode = () => {
-    setIsDarkMode(!isDarkMode);
-  };
+  // const toggleDarkMode = () => {
+  //   setIsDarkMode(!isDarkMode);
+  // };
 
   return (
     <div className={`admin-dashboard min-h-screen transition-colors ${isDarkMode ? "dark bg-slate-950" : "bg-slate-50"} flex`} dir="rtl">
@@ -149,7 +150,7 @@ export default function AdminPage() {
 
         {/* Footer */}
         <div className={`space-y-2 pt-4 border-t ${isDarkMode ? "border-slate-800" : "border-slate-200"}`}>
-          <button
+          {/* <button
             onClick={toggleDarkMode}
             className={`w-full py-2 px-3 rounded-lg text-sm transition ${
               isDarkMode
@@ -158,7 +159,7 @@ export default function AdminPage() {
             }`}
           >
             {isDarkMode ? "☀️ فات��" : "🌙 مظلم"}
-          </button>
+          </button> */}
           <button
             onClick={handleLogout}
             disabled={isLoggingOut}
@@ -186,7 +187,7 @@ export default function AdminPage() {
             </button>
             <ul tabIndex={0} className={`dropdown-content z-1 menu p-2 shadow ${isDarkMode ? "bg-slate-800" : "bg-white"} rounded-box w-52`}>
               <li>
-                <a onClick={() => setActiveTab("dashboard")}>📊 ل��حة التحكم</a>
+                <a onClick={() => setActiveTab("dashboard")}>📊 لوحة التحكم</a>
               </li>
               <li>
                 <a onClick={() => setActiveTab("products")}>📦 المنتجات</a>
@@ -197,9 +198,9 @@ export default function AdminPage() {
               <li>
                 <a onClick={() => setActiveTab("orders")}>📋 الطلبات</a>
               </li>
-              <li>
+              {/* <li>
                 <a onClick={toggleDarkMode}>{isDarkMode ? "☀️ فاتح" : "🌙 مظلم"}</a>
-              </li>
+              </li> */}
               <li>
                 <a onClick={handleLogout} className="text-error">تسجيل خروج</a>
               </li>
@@ -432,7 +433,7 @@ function QuickActionButton({
   return (
     <button
       onClick={onClick}
-      className={`p-4 rounded-lg transition font-semibold text-left ${baseClass}`}
+      className={`p-4 rounded-lg transition font-semibold text-center ${baseClass}`}
     >
       {label}
     </button>

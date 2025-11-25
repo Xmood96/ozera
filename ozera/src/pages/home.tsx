@@ -150,56 +150,65 @@ export default function HomePage() {
   };
 
   // Handle checkout
-  const handleCheckout = async (customerPhone: string, deliveryAddress: string) => {
-    if (cartItems.length === 0) return;
+ const handleCheckout = async (
+  customerPhone: string,
+  deliveryAddress: string
+) => {
+  if (cartItems.length === 0) return;
 
-    const totalAmount = cartItems.reduce((sum, item) => sum + item.total, 0);
+  const totalAmount = cartItems.reduce((sum, item) => sum + item.total, 0);
 
-    const orderItems: OrderItem[] = cartItems.map((item) => ({
-      productId: item.productId,
-      name: item.name,
-      price: item.price,
-      quantity: item.quantity,
-      image: item.imageUrl,
-    }));
+  const orderItems: OrderItem[] = cartItems.map((item) => ({
+    productId: item.productId,
+    name: item.name,
+    price: item.price,
+    quantity: item.quantity,
+    image: item.imageUrl,
+  }));
 
-    try {
-      await saveOrder({
-        items: orderItems,
+  try {
+    // ⬅️ احفظ الطلب واحصل على الـ orderId من Firebase
+    const orderId = await saveOrder({
+      items: orderItems,
+      totalAmount,
+      createdAt: new Date() as any,
+      status: "pending",
+      customerPhone,
+      deliveryAddress,
+    });
+
+    // Clear cart and close drawer
+    setCartItems([]);
+    setIsCartOpen(false);
+    localStorage.removeItem("ozera-cart");
+
+    // Show success message
+    setSuccessMessage(
+      `تم استلام طلبك بنجاح! سيتواصل معك فريقنا على الرقم ${customerPhone}`
+    );
+    setTimeout(() => setSuccessMessage(null), 5000);
+
+    // Redirect to WhatsApp with order details + orderId
+    setTimeout(() => {
+      sendOrderToWhatsApp(
+        orderItems,
         totalAmount,
-        createdAt: new Date() as any,
-        status: "pending",
         customerPhone,
         deliveryAddress,
-      });
-
-      // Clear cart and close drawer
-      setCartItems([]);
-      setIsCartOpen(false);
-      localStorage.removeItem("ozera-cart");
-
-      // Show success message
-      setSuccessMessage(
-        `تم استلام طلبك بنجاح! سيتواصل معك فريقنا على الرقم ${customerPhone}`
+        orderId // ⬅️ تمرير الـ Order ID هنا
       );
-      setTimeout(() => setSuccessMessage(null), 5000);
-
-      // Redirect to WhatsApp with order details
-      // Format: 009546481125 -> 209546481125 (remove 00 prefix, keep digits, add Egypt country code)
-      setTimeout(() => {
-        sendOrderToWhatsApp(orderItems, totalAmount, customerPhone, deliveryAddress, "209546481125");
-      }, 1000);
-    } catch (error) {
-      // Handle AbortError gracefully
-      if (error instanceof Error && error.name === "AbortError") {
-        console.debug("Order save was aborted (expected on unmount)");
-        return;
-      }
-      console.error("Error saving order:", error);
-      setSuccessMessage("حدث خطأ في حفظ الطلب. يرجى المحاولة مجددًا.");
-      setTimeout(() => setSuccessMessage(null), 5000);
+    }, 1200);
+  } catch (error) {
+    if (error instanceof Error && error.name === "AbortError") {
+      console.debug("Order save was aborted (expected on unmount)");
+      return;
     }
-  };
+    console.error("Error saving order:", error);
+    setSuccessMessage("حدث خطأ في حفظ الطلب. يرجى المحاولة مجددًا.");
+    setTimeout(() => setSuccessMessage(null), 5000);
+  }
+};
+
 
   // Handle WhatsApp button in hero
   const handleWhatsAppClick = () => {
@@ -229,7 +238,7 @@ export default function HomePage() {
       {/* Theme Toggle Button */}
       <button
         onClick={handleThemeToggle}
-        className="theme-toggle fixed top-6 left-6 z-40 flex items-center justify-center w-14 h-14 rounded-full bg-primary text-primary-content shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110"
+        className="theme-toggle absolute top-6 right-6 z-40 flex items-center justify-center w-14 h-14 rounded-full bg-primary text-primary-content shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110"
         aria-label="تبديل المظهر"
         title={theme === "oliva-light" ? "المظهر الداكن" : "المظهر الفاتح"}
       >
@@ -275,18 +284,18 @@ export default function HomePage() {
       <section className="products-section bg-base-100 py-12 lg:py-20">
         <div className="container mx-auto px-4">
           {/* Section Title */}
-          <div className="section-header text-center mb-12">
+          <div ref={productsRef} className="section-header text-center mb-12">
             <h2 className="text-3xl lg:text-4xl font-bold text-primary mb-2">
               منتجاتنا
             </h2>
             <p className="text-base-content opacity-75">
-              اختر من مجموعتنا الفاخرة من منتجا�� العناية بالبشرة الطبيعية
+              اختر من مجموعتنا الفاخرة من منتجات العناية بالبشرة الطبيعية
             </p>
           </div>
 
           {/* Category Filter */}
           {categories.length > 0 && (
-            <div className="categories-filter mb-12">
+            <div  className="categories-filter mb-12">
               <div className="categories-scroll overflow-x-auto pb-2 sm:pr-10 pr-40 flex gap-3 justify-center">
                 <CategoryChip
                   name="جميع المنتجات"
@@ -319,7 +328,7 @@ export default function HomePage() {
             </div>
           ) : (
             <div
-              ref={productsRef}
+              
               className="products-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
             >
               {products.map((product) => (

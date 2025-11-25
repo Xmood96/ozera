@@ -39,7 +39,7 @@ export default function CartDrawer({
       {/* Backdrop */}
       {isOpen && (
         <div
-          className="fixed inset-0 backdrop-blur-xl  bg-opacity-50 z-30 transition-opacity"
+          className="fixed inset-0 backdrop-blur-xs  bg-opacity-50 z-30 transition-opacity"
           onClick={onClose}
           aria-hidden="true"
         />
@@ -152,7 +152,7 @@ export default function CartDrawer({
                     onClick={() => setIsCheckoutMode(true)}
                     className="btn btn-primary w-full rounded-lg"
                   >
-                    ��لدفع والتأكيد
+                   تاكيد الطلب
                   </button>
                 </div>
               </>

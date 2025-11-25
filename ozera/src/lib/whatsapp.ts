@@ -17,30 +17,35 @@ export function generateOrderMessage(
   orderId: string
 ): string {
   const itemsList = items
-    .map((item) => `• ${item.name} × ${item.quantity} = ${item.price * item.quantity} ج.م`)
-    .join("\n");
+    .map(
+      (item) =>
+        `• *${item.name}*\n  الكمية: ${item.quantity}\n  السعر: ${item.price * item.quantity} ج.م`
+    )
+    .join("\n\n");
 
   const message = `
 🛍️ *طلب جديد من OZERA*
 
-🆔 *رقم الطلب:* ${orderId}
+📄 *تفاصيل الطلب*
+رقم الطلب: *${orderId.slice(0, 8).toUpperCase()}*
 
-👤 *بيانات العميل:*
-رقم الهاتف: ${customerPhone}
-العنوان: ${deliveryAddress}
+👤 *بيانات العميل*
+• رقم الهاتف: ${customerPhone}
+• العنوان: ${deliveryAddress}
 
-📦 *المنتجات:*
+📦 *المنتجات المطلوبة*
 ${itemsList}
 
-💰 *الإجمالي: ${totalAmount} ج.م*
+💰 *الإجمالي:* *${totalAmount} ج.م*
 
----
-تم الطلب عبر تطبيق OZERA
-شكراً لك! ✨
+━━━━━━━━━━━━━
+تم استلام الطلب عبر *تطبيق OZERA*  
+نشكر ثقتك بنا ✨
   `.trim();
 
   return message;
 }
+
 
 /**
  * Redirect to WhatsApp with order message
@@ -67,7 +72,7 @@ export function sendOrderToWhatsApp(
   customerPhone: string,
   deliveryAddress: string,
   orderId: string,
-  adminPhoneNumber: string = "209546481125"
+  adminPhoneNumber: string = "966546481125"
 ): void {
   const message = generateOrderMessage(items, totalAmount, customerPhone, deliveryAddress, orderId);
   redirectToWhatsApp(message, adminPhoneNumber);

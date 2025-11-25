@@ -362,7 +362,7 @@ export default function OrdersTracking() {
                 setAddressFilter(e.target.value);
                 handleFilterChange();
               }}
-              placeholder="ابحث بالعن��ان"
+              placeholder="ابحث بالعنوان"
               className="input input-bordered w-full input-sm"
               dir="rtl"
             />
@@ -449,7 +449,7 @@ export default function OrdersTracking() {
                   </div>
                   <div className="info-item">
                     <p className="text-xs text-base-content opacity-60 mb-1">رقم الهاتف</p>
-                    <p className="text-lg font-bold" dir="ltr">
+                    <p className="text-lg font-bold" >
                       {order.customerPhone || "—"}
                     </p>
                   </div>

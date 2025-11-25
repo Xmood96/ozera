@@ -154,7 +154,7 @@ export default function CategoriesManagement() {
           {categories.map((category) => (
             <div
               key={category.id}
-              className="bg-base-200 rounded-lg p-6 shadow-sm border border-slate-200 hover:shadow-md transition-shadow flex flex-col justify-between"
+              className="bg-white rounded-lg p-6 shadow-sm border border-slate-200 hover:shadow-md transition-shadow flex flex-col justify-between"
             >
               <div className="mb-4">
                 <h3 className="text-xl font-bold text-slate-900">{category.name}</h3>
@@ -162,7 +162,7 @@ export default function CategoriesManagement() {
               <div className="flex gap-2">
                 <button
                   onClick={() => handleOpenModal(category)}
-                  className="flex-1 btn btn-xs bg-green-600 hover:bg-green-700 text-white border-0 rounded"
+                  className="flex-1 btn btn-xs btn-ghost  hover:bg-secondary/50 border-secondary text-slate-900 border rounded"
                 >
                   ✏️ تعديل
                 </button>
@@ -196,7 +196,7 @@ export default function CategoriesManagement() {
                   value={categoryName}
                   onChange={(e) => setCategoryName(e.target.value)}
                   className="input input-bordered"
-                  placeholder="مثال: ك��يمات الترطيب"
+                  placeholder="مثال: كريمات الترطيب"
                   required
                 />
               </div>
