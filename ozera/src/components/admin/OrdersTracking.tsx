@@ -96,6 +96,12 @@ export default function OrdersTracking() {
         }
       }
     } catch (error) {
+      // Handle AbortError gracefully
+      if (error instanceof Error && error.name === "AbortError") {
+        console.debug("Status update was aborted (expected on unmount)");
+        return;
+      }
+
       if (isMountedRef.current) {
         console.error("Error updating order status:", error);
       }
@@ -566,9 +572,9 @@ export default function OrdersTracking() {
                     }
                     className="select select-bordered w-full select-sm"
                   >
-                    <option value="pending">⏳ قيد الانتظار</option>
+                    <option value="pending">⏳ ��يد الانتظار</option>
                     <option value="paid">✓ تم الدفع</option>
-                    <option value="in_delivery">🚚 قيد الت��صيل</option>
+                    <option value="in_delivery">🚚 قيد التوصيل</option>
                     <option value="completed">✓✓ مكتمل</option>
                     <option value="cancelled">✕ ملغى</option>
                   </select>
@@ -634,7 +640,7 @@ export default function OrdersTracking() {
                         جاري الحفظ...
                       </>
                     ) : (
-                      "��� حفظ التعديلات"
+                      "💾 حفظ التعديلات"
                     )}
                   </button>
                   <button
