@@ -6,13 +6,15 @@ import type { OrderItem } from "./firestore";
  * @param totalAmount - Total order amount
  * @param customerPhone - Customer phone number
  * @param deliveryAddress - Delivery address
+ * @param orderId - Order ID from Firebase
  * @returns Formatted message string for WhatsApp
  */
 export function generateOrderMessage(
   items: OrderItem[],
   totalAmount: number,
   customerPhone: string,
-  deliveryAddress: string
+  deliveryAddress: string,
+  orderId: string
 ): string {
   const itemsList = items
     .map((item) => `• ${item.name} × ${item.quantity} = ${item.price * item.quantity} ج.م`)
@@ -20,6 +22,8 @@ export function generateOrderMessage(
 
   const message = `
 🛍️ *طلب جديد من OZERA*
+
+🆔 *رقم الطلب:* ${orderId}
 
 👤 *بيانات العميل:*
 رقم الهاتف: ${customerPhone}
