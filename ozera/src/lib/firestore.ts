@@ -74,6 +74,11 @@ export async function getProducts(categoryId?: string): Promise<Product[]> {
       };
     });
   } catch (error) {
+    // Handle AbortError gracefully - occurs when component unmounts during query
+    if (error instanceof Error && error.name === "AbortError") {
+      console.debug("Products query was aborted (expected on unmount)");
+      return [];
+    }
     console.error("Error fetching products:", error);
     return [];
   }
