@@ -12,27 +12,27 @@ export class FirestoreQueryManager {
    * @param query - The Firestore query to execute
    * @returns Promise resolving to the query snapshot
    */
-  async executeQuery<T extends { docs: any[] }>(query: Query): Promise<T | null> {
+  async executeQuery(query: Query): Promise<any | null> {
     try {
       // Create a new abort controller for this query
       this.abortController = new AbortController();
-      
+
       // Execute the query
       const snapshot = await getDocs(query);
-      
+
       // Return null if aborted
       if (this.abortController.signal.aborted) {
         return null;
       }
-      
-      return snapshot as T;
+
+      return snapshot;
     } catch (error) {
       // Handle AbortError gracefully - this is expected when component unmounts
       if (error instanceof Error && error.name === "AbortError") {
         console.debug("Firestore query was aborted (expected on unmount)");
         return null;
       }
-      
+
       // Re-throw other errors
       throw error;
     }
