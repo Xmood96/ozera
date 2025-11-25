@@ -66,6 +66,12 @@ export default function OrdersTracking() {
       })) as Order[];
       setOrders(ordersData);
     } catch (error) {
+      // Handle AbortError gracefully - occurs when component unmounts during query
+      if (error instanceof Error && error.name === "AbortError") {
+        console.debug("Orders query was aborted (expected on unmount)");
+        return;
+      }
+
       if (!isMountedRef.current) return;
       console.error("Error loading orders:", error);
     } finally {
@@ -562,7 +568,7 @@ export default function OrdersTracking() {
                   >
                     <option value="pending">⏳ قيد الانتظار</option>
                     <option value="paid">✓ تم الدفع</option>
-                    <option value="in_delivery">🚚 قيد التوصيل</option>
+                    <option value="in_delivery">🚚 قيد الت��صيل</option>
                     <option value="completed">✓✓ مكتمل</option>
                     <option value="cancelled">✕ ملغى</option>
                   </select>
@@ -628,7 +634,7 @@ export default function OrdersTracking() {
                         جاري الحفظ...
                       </>
                     ) : (
-                      "💾 حفظ التعديلات"
+                      "��� حفظ التعديلات"
                     )}
                   </button>
                   <button
