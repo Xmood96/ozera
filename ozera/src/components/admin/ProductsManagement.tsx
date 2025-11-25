@@ -16,6 +16,8 @@ export default function ProductsManagement() {
     name: "",
     description: "",
     price: 0,
+    basePrice: 0,
+    discount: 0,
     imageUrl: "",
     categoryId: "",
   });
