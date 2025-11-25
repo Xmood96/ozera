@@ -98,6 +98,11 @@ export async function saveOrder(order: Order): Promise<string> {
     });
     return docRef.id;
   } catch (error) {
+    // Handle AbortError gracefully - occurs when component unmounts during operation
+    if (error instanceof Error && error.name === "AbortError") {
+      console.debug("Order save was aborted (expected on unmount)");
+      throw error;
+    }
     console.error("Error saving order:", error);
     throw error;
   }
