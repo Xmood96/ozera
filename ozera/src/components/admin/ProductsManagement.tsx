@@ -225,8 +225,22 @@ export default function ProductsManagement() {
           </td>
 
           {/* السعر - يظهر من sm وفوق */}
-          <td className="font-bold text-blue-600 hidden sm:table-cell">
-            {product.price} ج.م
+          <td className="hidden sm:table-cell">
+            <div className="flex flex-col gap-1">
+              {product.discount && product.discount > 0 ? (
+                <>
+                  <span className="text-xs line-through text-slate-500">
+                    {product.basePrice} ج.م
+                  </span>
+                  <div className="flex items-center gap-2">
+                    <span className="font-bold text-green-600">{product.price} ج.م</span>
+                    <span className="badge badge-sm badge-error">{product.discount}%</span>
+                  </div>
+                </>
+              ) : (
+                <span className="font-bold text-blue-600">{product.price} ج.م</span>
+              )}
+            </div>
           </td>
 
           {/* الوصف - يظهر فقط على الشاشات الكبيرة */}
