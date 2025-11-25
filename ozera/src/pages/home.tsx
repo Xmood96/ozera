@@ -78,6 +78,11 @@ export default function HomePage() {
       const productsData = await getProducts(categoryId === "all" ? undefined : categoryId);
       setProducts(productsData);
     } catch (error) {
+      // Handle AbortError gracefully - occurs when component unmounts during query
+      if (error instanceof Error && error.name === "AbortError") {
+        console.debug("Products filter query was aborted (expected on unmount)");
+        return;
+      }
       console.error("Error loading products:", error);
     } finally {
       setIsLoading(false);
