@@ -183,6 +183,12 @@ export default function HomePage() {
         `تم استلام طلبك بنجاح! سيتواصل معك فريقنا على الرقم ${customerPhone}`
       );
       setTimeout(() => setSuccessMessage(null), 5000);
+
+      // Redirect to WhatsApp with order details
+      // Format: 009546481125 -> 209546481125 (remove 00 prefix, keep digits, add Egypt country code)
+      setTimeout(() => {
+        sendOrderToWhatsApp(orderItems, totalAmount, customerPhone, deliveryAddress, "209546481125");
+      }, 1000);
     } catch (error) {
       // Handle AbortError gracefully
       if (error instanceof Error && error.name === "AbortError") {
@@ -334,7 +340,7 @@ export default function HomePage() {
       <button
         onClick={() => setIsCartOpen(true)}
         className="fixed bottom-6 left-6 btn btn-circle btn-primary btn-lg shadow-2xl z-20 flex items-center justify-center"
-        aria-label={`السلة (${cartItems.reduce((sum, item) => sum + item.quantity, 0)} ��نصر)`}
+        aria-label={`السلة (${cartItems.reduce((sum, item) => sum + item.quantity, 0)} عنصر)`}
       >
         <span className="text-2xl">🛒</span>
         {cartItems.length > 0 && (
