@@ -104,8 +104,8 @@ export default function ProductsManagement() {
         name: formData.name,
         description: formData.description,
         price: Number(formData.price),
-        basePrice: Number(formData.basePrice) || undefined,
-        discount: formData.discount > 0 ? Number(formData.discount) : undefined,
+        basePrice: Number(formData.basePrice),
+        discount: Number(formData.discount),
         imageUrl: formData.imageUrl,
         categoryId: formData.categoryId,
       };
