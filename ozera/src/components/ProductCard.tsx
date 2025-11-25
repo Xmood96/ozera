@@ -141,16 +141,16 @@ export default function ProductCard({ product, onAddToCart, onRemoveFromCart, ca
             </div>
           )}
 
-          <div className="product-footer flex justify-between items-center gap-2 mt-4 pt-4 border-t border-base-200">
-            <div className="product-price-section flex flex-col gap-1">
+          <div className="product-footer flex justify-between items-center gap-3 mt-4 pt-4 border-t border-base-200">
+            <div className="product-price-section flex-1 flex flex-col gap-1.5">
               {product.discount && product.discount > 0 ? (
                 <>
-                  <div className="flex items-center gap-2">
-                    <span className="text-sm line-through text-base-content opacity-50">
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <span className="text-lg line-through text-slate-400 font-medium">
                       {product.basePrice} ج.م
                     </span>
-                    <span className="badge badge-sm badge-error font-bold">
-                      {product.discount}%
+                    <span className="badge badge-error text-white font-bold px-2 py-1 text-xs">
+                      -{product.discount}%
                     </span>
                   </div>
                   <span className="text-2xl font-bold text-success">
