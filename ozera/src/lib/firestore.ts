@@ -67,6 +67,8 @@ export async function getProducts(categoryId?: string): Promise<Product[]> {
         name: data.name,
         description: data.description,
         price: data.price,
+        basePrice: data.basePrice,
+        discount: data.discount,
         imageUrl: data.imageUrl,
         categoryId: data.categoryId,
         createdAt: data.createdAt,
