@@ -16,8 +16,17 @@ export default function HomePage() {
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
+  const [theme, setTheme] = useState<"oliva-light" | "oliva-dark">("oliva-light");
 
   const productsRef = useRef<HTMLDivElement>(null);
+
+  // Load theme on mount
+  useEffect(() => {
+    const savedTheme = localStorage.getItem("ozera-theme") as "oliva-light" | "oliva-dark" | null;
+    const initialTheme = savedTheme || "oliva-light";
+    setTheme(initialTheme);
+    document.documentElement.setAttribute("data-theme", initialTheme);
+  }, []);
 
   // Load categories and products on mount
   useEffect(() => {
@@ -211,7 +220,7 @@ export default function HomePage() {
               منتجاتنا
             </h2>
             <p className="text-base-content opacity-75">
-              اختر من مجموعتنا الفاخرة من منتجات العناية بالبشرة الطبيعية
+              اختر من مجموعتنا الفاخرة من منتجا�� العناية بالبشرة الطبيعية
             </p>
           </div>
 
