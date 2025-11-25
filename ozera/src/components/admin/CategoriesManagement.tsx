@@ -88,6 +88,12 @@ export default function CategoriesManagement() {
         handleCloseModal();
       }
     } catch (error) {
+      // Handle AbortError gracefully
+      if (error instanceof Error && error.name === "AbortError") {
+        console.debug("Category save was aborted (expected on unmount)");
+        return;
+      }
+
       if (isMountedRef.current) {
         console.error("Error saving category:", error);
       }
@@ -152,7 +158,7 @@ export default function CategoriesManagement() {
                   onClick={() => handleOpenModal(category)}
                   className="flex-1 btn btn-xs bg-green-600 hover:bg-green-700 text-white border-0 rounded"
                 >
-                  ✏️ تعديل
+                  ✏�� تعديل
                 </button>
                 <button
                   onClick={() => handleDelete(category.id)}
