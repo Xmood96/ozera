@@ -100,18 +100,27 @@ export default function ProductsManagement() {
     if (!isMountedRef.current) return;
 
     try {
+      const productData = {
+        name: formData.name,
+        description: formData.description,
+        price: Number(formData.price),
+        basePrice: Number(formData.basePrice) || undefined,
+        discount: formData.discount > 0 ? Number(formData.discount) : undefined,
+        imageUrl: formData.imageUrl,
+        categoryId: formData.categoryId,
+      };
+
       if (editingProduct) {
         // Update product
         const productRef = doc(db, "products", editingProduct.id);
         await updateDoc(productRef, {
-          ...formData,
+          ...productData,
           updatedAt: Timestamp.now(),
         });
       } else {
         // Add new product
         await addDoc(collection(db, "products"), {
-          ...formData,
-          price: Number(formData.price),
+          ...productData,
           createdAt: Timestamp.now(),
           updatedAt: Timestamp.now(),
         });
@@ -255,7 +264,7 @@ export default function ProductsManagement() {
                 onClick={() => handleOpenModal(product)}
                 className="btn btn-xs btn-ghost   text-slate-900 border border-secondary rounded"
               >
-                ✏️ تعديل
+                ��️ تعديل
               </button>
 
               <button
