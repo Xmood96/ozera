@@ -142,9 +142,27 @@ export default function ProductCard({ product, onAddToCart, onRemoveFromCart, ca
           )}
 
           <div className="product-footer flex justify-between items-center gap-2 mt-4 pt-4 border-t border-base-200">
-            <span className="product-price text-2xl font-bold text-primary">
-              {product.price} ج.م
-            </span>
+            <div className="product-price-section flex flex-col gap-1">
+              {product.discount && product.discount > 0 ? (
+                <>
+                  <div className="flex items-center gap-2">
+                    <span className="text-sm line-through text-base-content opacity-50">
+                      {product.basePrice} ج.م
+                    </span>
+                    <span className="badge badge-sm badge-error font-bold">
+                      {product.discount}%
+                    </span>
+                  </div>
+                  <span className="text-2xl font-bold text-success">
+                    {product.price} ج.م
+                  </span>
+                </>
+              ) : (
+                <span className="text-2xl font-bold text-primary">
+                  {product.price} ج.م
+                </span>
+              )}
+            </div>
             {isExpanded ? (
               <div className="expanded-actions flex items-center gap-2">
                 {isInCart && (
