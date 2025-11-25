@@ -194,6 +194,14 @@ export default function HomePage() {
     }, 100);
   };
 
+  // Handle theme toggle
+  const handleThemeToggle = () => {
+    const newTheme = theme === "oliva-light" ? "oliva-dark" : "oliva-light";
+    setTheme(newTheme);
+    document.documentElement.setAttribute("data-theme", newTheme);
+    localStorage.setItem("ozera-theme", newTheme);
+  };
+
   return (
     <div className="ozera-home min-h-screen bg-base-100" dir="rtl" lang="ar">
       {/* Success Toast */}
