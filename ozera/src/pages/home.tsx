@@ -183,6 +183,11 @@ export default function HomePage() {
       );
       setTimeout(() => setSuccessMessage(null), 5000);
     } catch (error) {
+      // Handle AbortError gracefully
+      if (error instanceof Error && error.name === "AbortError") {
+        console.debug("Order save was aborted (expected on unmount)");
+        return;
+      }
       console.error("Error saving order:", error);
       setSuccessMessage("حدث خطأ في حفظ الطلب. يرجى المحاولة مجددًا.");
       setTimeout(() => setSuccessMessage(null), 5000);
