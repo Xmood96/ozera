@@ -103,6 +103,8 @@ export default function ProductsManagement() {
     if (!isMountedRef.current) return;
 
     try {
+      console.log("Form data before conversion:", formData);
+
       const productData = {
         name: formData.name,
         description: formData.description,
@@ -113,6 +115,14 @@ export default function ProductsManagement() {
         categoryId: formData.categoryId,
       };
 
+      console.log("Product data after conversion:", {
+        name: productData.name,
+        price: productData.price,
+        basePrice: productData.basePrice,
+        discount: productData.discount,
+        imageUrl: productData.imageUrl,
+        categoryId: productData.categoryId,
+      });
       console.log("Saving product data:", productData);
 
       if (editingProduct) {
