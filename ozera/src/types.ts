@@ -1,4 +1,3 @@
-
 /* ========== الفئات ========== */
 export interface Category {
     id: string;
@@ -10,7 +9,9 @@ export interface Product {
   id: string;
   name: string;        // اسم المنتج
   description: string; // وصف
-  price: number;       // السعر
+  price: number;       // السعر الحالي (السعر بعد الخصم)
+  basePrice?: number;  // السعر الأساسي قبل الخصم (اختياري)
+  discount?: number;   // نسبة الخصم (0-100) - اختياري
   imageUrl: string;    // رابط الصورة
   categoryId: string;  // الفئة المرتبطة
   createdAt?: number;  // تاريخ الإنشاء (اختياري)
