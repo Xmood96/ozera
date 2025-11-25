@@ -114,6 +114,12 @@ export default function ProductsManagement() {
         handleCloseModal();
       }
     } catch (error) {
+      // Handle AbortError gracefully
+      if (error instanceof Error && error.name === "AbortError") {
+        console.debug("Product save was aborted (expected on unmount)");
+        return;
+      }
+
       if (isMountedRef.current) {
         console.error("Error saving product:", error);
       }
@@ -287,7 +293,7 @@ export default function ProductsManagement() {
 
               <div className="form-control flex gap-12">
                 <label className="label">
-                  <span className="label-text">الفئة</span>
+                  <span className="label-text">الفئ��</span>
                 </label>
                 <select
                   value={formData.categoryId}
