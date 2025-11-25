@@ -40,6 +40,11 @@ export default function HomePage() {
         setCategories(categoriesData);
         setProducts(productsData);
       } catch (error) {
+        // Handle AbortError gracefully - occurs when component unmounts during query
+        if (error instanceof Error && error.name === "AbortError") {
+          console.debug("Home page data query was aborted (expected on unmount)");
+          return;
+        }
         console.error("Error loading data:", error);
       } finally {
         setIsLoading(false);
