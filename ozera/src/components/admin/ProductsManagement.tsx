@@ -300,7 +300,52 @@ export default function ProductsManagement() {
 
               <div className="form-control flex gap-10 ">
                 <label className="label">
-                  <span className="label-text">السعر</span>
+                  <span className="label-text">السعر الأساسي</span>
+                </label>
+                <input
+                  type="number"
+                  value={formData.basePrice}
+                  onChange={(e) => {
+                    const basePrice = Number(e.target.value);
+                    const discount = formData.discount || 0;
+                    const currentPrice = discount > 0
+                      ? Math.round((basePrice * (100 - discount)) / 100 * 100) / 100
+                      : basePrice;
+                    setFormData({ ...formData, basePrice, price: currentPrice });
+                  }}
+                  className="input input-bordered"
+                  placeholder="السعر قبل الخصم"
+                />
+              </div>
+
+              <div className="form-control flex gap-7 ">
+                <label className="label">
+                  <span className="label-text">نسبة الخصم (%)</span>
+                </label>
+                <div className="flex gap-2 items-center">
+                  <input
+                    type="number"
+                    value={formData.discount}
+                    onChange={(e) => {
+                      const discount = Math.min(100, Math.max(0, Number(e.target.value)));
+                      const basePrice = formData.basePrice || 0;
+                      const currentPrice = discount > 0
+                        ? Math.round((basePrice * (100 - discount)) / 100 * 100) / 100
+                        : basePrice;
+                      setFormData({ ...formData, discount, price: currentPrice });
+                    }}
+                    className="input input-bordered flex-1"
+                    placeholder="0"
+                    min="0"
+                    max="100"
+                  />
+                  <span className="text-sm font-semibold">%</span>
+                </div>
+              </div>
+
+              <div className="form-control flex gap-10 ">
+                <label className="label">
+                  <span className="label-text">السعر الحالي</span>
                 </label>
                 <input
                   type="number"
@@ -309,7 +354,7 @@ export default function ProductsManagement() {
                     setFormData({ ...formData, price: Number(e.target.value) })
                   }
                   className="input input-bordered"
-                  required
+                  placeholder="السعر بعد الخصم"
                 />
               </div>
 
