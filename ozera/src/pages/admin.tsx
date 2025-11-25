@@ -76,6 +76,12 @@ export default function AdminPage() {
         completedOrders: completedCount,
       });
     } catch (error) {
+      // Handle AbortError gracefully - occurs when component unmounts during query
+      if (error instanceof Error && error.name === "AbortError") {
+        console.debug("Dashboard stats query was aborted (expected on unmount)");
+        return;
+      }
+
       if (isMountedRef.current) {
         console.error("Error loading stats:", error);
       }
