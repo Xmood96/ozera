@@ -37,6 +37,11 @@ export async function getCategories(): Promise<Category[]> {
       name: doc.data().categoryName,
     }));
   } catch (error) {
+    // Handle AbortError gracefully - occurs when component unmounts during query
+    if (error instanceof Error && error.name === "AbortError") {
+      console.debug("Categories query was aborted (expected on unmount)");
+      return [];
+    }
     console.error("Error fetching categories:", error);
     return [];
   }
