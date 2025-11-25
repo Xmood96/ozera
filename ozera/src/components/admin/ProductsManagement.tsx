@@ -44,6 +44,12 @@ export default function ProductsManagement() {
       setProducts(productsData);
       setCategories(categoriesData);
     } catch (error) {
+      // Handle AbortError gracefully - occurs when component unmounts during query
+      if (error instanceof Error && error.name === "AbortError") {
+        console.debug("Products data query was aborted (expected on unmount)");
+        return;
+      }
+
       if (!isMountedRef.current) return;
       console.error("Error loading data:", error);
     } finally {
