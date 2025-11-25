@@ -63,8 +63,9 @@ export default function AdminPage() {
         ...doc.data(),
       })) as any[];
 
-      const totalRevenue = ordersData.reduce((sum, order) => sum + (order.totalAmount || 0), 0);
-      const completedCount = ordersData.filter((order) => order.status === "completed").length;
+      const completedOrders = ordersData.filter((order) => order.status === "completed");
+      const totalRevenue = completedOrders.reduce((sum, order) => sum + (order.totalAmount || 0), 0);
+      const completedCount = completedOrders.length;
       const pendingCount = ordersData.filter((order) => order.status === "pending").length;
 
       setStats({
