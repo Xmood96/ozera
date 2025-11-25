@@ -110,6 +110,8 @@ export default function ProductsManagement() {
         categoryId: formData.categoryId,
       };
 
+      console.log("Saving product data:", productData);
+
       if (editingProduct) {
         // Update product
         const productRef = doc(db, "products", editingProduct.id);
@@ -117,6 +119,7 @@ export default function ProductsManagement() {
           ...productData,
           updatedAt: Timestamp.now(),
         });
+        console.log("Product updated successfully");
       } else {
         // Add new product
         await addDoc(collection(db, "products"), {
@@ -124,6 +127,7 @@ export default function ProductsManagement() {
           createdAt: Timestamp.now(),
           updatedAt: Timestamp.now(),
         });
+        console.log("Product added successfully");
       }
 
       if (isMountedRef.current) {
