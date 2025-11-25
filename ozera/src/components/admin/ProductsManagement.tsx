@@ -66,12 +66,15 @@ export default function ProductsManagement() {
   const handleOpenModal = (product?: Product) => {
     if (product) {
       setEditingProduct(product);
+      // If product doesn't have a basePrice, use the current price as basePrice
+      const basePrice = product.basePrice || product.price;
+      const discount = product.discount || 0;
       setFormData({
         name: product.name,
         description: product.description,
         price: product.price,
-        basePrice: product.basePrice || 0,
-        discount: product.discount || 0,
+        basePrice: basePrice,
+        discount: discount,
         imageUrl: product.imageUrl,
         categoryId: product.categoryId,
       });
