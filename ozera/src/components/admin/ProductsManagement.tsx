@@ -70,6 +70,8 @@ export default function ProductsManagement() {
         name: product.name,
         description: product.description,
         price: product.price,
+        basePrice: product.basePrice || 0,
+        discount: product.discount || 0,
         imageUrl: product.imageUrl,
         categoryId: product.categoryId,
       });
@@ -79,6 +81,8 @@ export default function ProductsManagement() {
         name: "",
         description: "",
         price: 0,
+        basePrice: 0,
+        discount: 0,
         imageUrl: "",
         categoryId: "",
       });
