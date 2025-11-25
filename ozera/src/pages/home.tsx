@@ -1,6 +1,7 @@
 import { useEffect, useState, useRef } from "react";
 import type { Product, CartItem, Category } from "../types";
 import { getCategories, getProducts, saveOrder, type OrderItem } from "../lib/firestore";
+import { sendOrderToWhatsApp } from "../lib/whatsapp";
 import HeroSection from "../components/HeroSection";
 import ProductCard from "../components/ProductCard";
 import CategoryChip from "../components/CategoryChip";
@@ -333,7 +334,7 @@ export default function HomePage() {
       <button
         onClick={() => setIsCartOpen(true)}
         className="fixed bottom-6 left-6 btn btn-circle btn-primary btn-lg shadow-2xl z-20 flex items-center justify-center"
-        aria-label={`السلة (${cartItems.reduce((sum, item) => sum + item.quantity, 0)} عنصر)`}
+        aria-label={`السلة (${cartItems.reduce((sum, item) => sum + item.quantity, 0)} ��نصر)`}
       >
         <span className="text-2xl">🛒</span>
         {cartItems.length > 0 && (
